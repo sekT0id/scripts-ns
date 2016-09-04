@@ -1,17 +1,13 @@
 <?php
-namespace app\extended\models;
+namespace app\models;
 
 use yii\base\Model;
-use yii\web\Response;
-use yii\web\UploadedFile;
 /**
  * app\models
  */
 class Form extends Model
 {
     public $id;
-    public $secure;
-    public $path;
     public $text;
     public $name;
 
@@ -29,8 +25,6 @@ class Form extends Model
             [[
                 'name',
                 'text',
-                'secure',
-                'path',
                 'id',
             ],
                 'string'],

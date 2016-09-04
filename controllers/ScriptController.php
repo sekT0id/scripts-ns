@@ -4,10 +4,8 @@ namespace app\controllers;
 
 use Yii;
 
-use app\extended\controllers\BaseController;
-
-use app\extended\models\Form;
-use app\extended\models\Script;
+use app\models\Form;
+use app\models\Scripts;
 
 class ScriptController extends BaseController
 {
@@ -19,10 +17,11 @@ class ScriptController extends BaseController
     public function actionNew()
     {
         $model = new Form;
-        $scripts = Script::find()->all();
+        $scripts = Scripts::find()->all();
 
         return $this->render('edit', [
             'model' => $model,
+            'script' => false,
             'scripts' => $scripts,
         ]);
     }
@@ -35,41 +34,33 @@ class ScriptController extends BaseController
     public function actionView($script)
     {
         $script = $this->getScriptById($script);
-        $searchedPath = '';
 
-        if ($script->path) {
-            $searchedPath = $script->path.'.';
-        }
-
-        $searchedPath = $searchedPath.$script->id;
-        $scriptRecent = Script::find()
-            ->andWhere(['path' => $searchedPath])
+        $scriptRecent = Scripts::find()
+//            ->andWhere(['path' => $searchedPath])
             ->orderBY([
-                'path' => SORT_ASC,
+                //'path' => SORT_ASC,
             ])
             ->all();
 
         return $this->render('view', [
             'script'       => $script,
             'scriptRecent' => $scriptRecent,
-            'scriptParent' => substr($script->path, -1),
         ]);
     }
 
     /**
-     * Edit existed script.
+     * Edit existed script. - готов
      *
      * @return string
      */
     public function actionEdit($script)
     {
         $model = new Form;
-        $scripts = Script::find()->all();
+        $scripts = Scripts::find()->all();
 
         return $this->render('edit', [
             'model' => $model,
             'script' => $this->getScriptById($script),
-            'scripts' => $scripts,
         ]);
     }
 
@@ -90,31 +81,35 @@ class ScriptController extends BaseController
         $searchedPath = $searchedPath.$script->id;
 
         $script->delete();
-        Script::deleteAll(['like', 'path', $searchedPath.'%', false]);
+        Scripts::deleteAll(['like', 'path', $searchedPath.'%', false]);
 
         return $this->goHome();
     }
 
     /**
-    * Save script action
+    * Save script action - готов
     */
     public function actionSave()
     {
         $model = new Form();
         $model->load(Yii::$app->request->post());
 
-        $script = new Script();
+        $script = new Scripts();
 
+        $script->name   = $model->name;
+        $script->data   = $model->text;
+
+        // Если передан id скрипта,
+        // значит находимся в режиме редактирования
         if ($model->id) {
             $script->id = $model->id;
             $script->isNewRecord = false;
+            $script->save();
+        // Иначе режим добавления
+        } else {
+            $script->add();
         }
 
-        $script->name   = $model->name;
-        $script->text   = $model->text;
-        $script->path   = $model->path;
-
-        $script->save();
         return $this->goHome();
         exit;
     }
@@ -128,7 +123,7 @@ class ScriptController extends BaseController
     protected function getScriptById($id = null)
     {
         if ($id !== null) {
-            if ($script = Script::find()->andWhere(['id' => $id])->one()) {
+            if ($script = Scripts::find()->andWhere(['id' => $id])->one()) {
                 return $script;
             }
             return false;

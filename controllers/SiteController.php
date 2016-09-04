@@ -4,10 +4,8 @@ namespace app\controllers;
 
 use Yii;
 
-use app\extended\controllers\BaseController;
-
-use app\extended\models\Form;
-use app\extended\models\Script;
+use app\models\Form;
+use app\models\Scripts;
 
 class SiteController extends BaseController
 {
@@ -18,12 +16,8 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        // Представление данных таблицы со скриптами
-        // в виде json, для bootstrap tree view
-        $jsonTreeView = Script::getJsonTreeView();
-
         return $this->render('index', [
-            'jsonTreeView' => $jsonTreeView,
+            'tree' => Scripts::find()->all(),
         ]);
     }
 }

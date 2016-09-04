@@ -3,22 +3,20 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Url;
-use app\extended\models\Script;
+use app\models\Script;
 
 $this->title = 'My Yii Application';
 
-$this->registerJsFile('/libs/bootstrap/js/bootstrap-treeview.min.js', [
+$this->registerJsFile('/js/jQuery.tree.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
 ]);
 
-$this->registerJsFile('/js/extended-tree-view.js', [
+$this->registerJsFile('/js/example.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
 ]);
 
-$jsCode = 'var treeData = '.Script::getJsonTreeView()."\n";
-$this->registerJs($jsCode, $this::POS_BEGIN);
 ?>
 
 <div class="site-index">
@@ -38,7 +36,14 @@ $this->registerJs($jsCode, $this::POS_BEGIN);
 
             </div>
             <div class="col-sm-6 col-sm-offset-3">
-                <div id="tree"></div>
+                <ul id="tree">
+                    <?php foreach ($tree as $item) :?>
+                        <li>
+                            <a href="<?php echo Url::toRoute(['script/edit', 'script' => $item->id]);?>">
+                                <?php echo $item->name;?></li>
+                            </a>
+                    <?php endforeach;?>
+                </ul>
             </div>
         </div>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\extended\controllers;
+namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;

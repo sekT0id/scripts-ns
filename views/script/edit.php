@@ -40,7 +40,7 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                         ->textArea([
                             'id' => 'sir-trevor-textArea',
                             'class' => 'js-st-instance',
-                            'value' => (isset($script)) ? $script->text : false,
+                            'value' => ($script) ? $script->data : false,
                         ])
                         ->label(false);
                     ?>
@@ -55,51 +55,13 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
 
                             <?php echo $form->field($model, 'name')
                                 ->input('text', [
-                                    'value' => (isset($script)) ? $script->name : false,
+                                    'value' => ($script) ? $script->name : false,
                                 ])
                                 ->label('Имя скрипта *') ?>
 
-                            <?php
-                            // Формируем подсказку для поля parentId
-                            $hint = Html::tag('span', '', [
-                                'class'          => 'glyphicon glyphicon-question-sign cursor-help pull-right',
-                                'aria-hidden'    => 'true',
-                                'data-toggle'    => 'tooltip',
-                                'data-placement' => 'top',
-                                'title' =>
-                                    "Нет (Значение по умолчанию) - Независимый, либо родительский скрипт.\n".
-                                    "<Имя скрипта> - Скрипт будет доступен в меню выбранного скрипта.\n",
-                            ]);
-
-                            // Формируем итемы для поля path
-                            $parentIdItems = [];
-                            foreach ($scripts as $scr) {
-                                $path = '';
-                                if ($scr->path != '') {
-                                    $path = $scr->path.'.';
-                                }
-
-                                $path .= $scr->id ;
-                                $parentIdItems[$path] = $scr->name;
-                            }
-
-                            echo $form->field($model, 'path')
-                                ->dropdownList(
-                                    $parentIdItems,
-                                    [
-                                        'prompt' => '-- Нет --',
-                                        'options' => [
-                                            (isset($script)) ? $script->path : false => [
-                                                'Selected' => true,
-                                            ],
-                                        ],
-                                    ]
-                                )
-                                ->label('Родительский скрипт '.$hint);?>
-
                             <?php // id редактируемого скрипта.
                             echo $form->field($model, 'id')
-                                ->hiddenInput(['value' => (isset($script)) ? $script->id : false])
+                                ->hiddenInput(['value' => ($script) ? $script->id : false])
                                 ->label(false);?>
 
                             <?php echo Html::submitButton('Сохранить', [
@@ -114,7 +76,7 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                         </div>
                     </div>
 
-                    <?php if (isset($script->id)) :?>
+                    <?php if ($script) :?>
                         <div class="panel panel-danger">
                             <div class="panel-body bg-danger">
 
@@ -159,7 +121,7 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
 
                 <?php // id редактируемого скрипта.
                     echo $form->field($model, 'id')
-                        ->hiddenInput(['value' => (isset($script)) ? $script->id : false])
+                        ->hiddenInput(['value' => ($script) ? $script->id : false])
                         ->label(false);?>
 
             </div>
