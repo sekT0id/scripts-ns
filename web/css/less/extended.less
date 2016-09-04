@@ -1,0 +1,100 @@
+// out: ../extended.css
+
+@import (less) url(mixins.less);
+
+@text-color: #42474b;
+@font-size: 14px;
+@font-weight: 400;
+
+html, body {
+    min-height: 100%;
+    color: @text-color;
+}
+
+h1, h2, h4 {
+    text-align: center;
+    font-weight: 700;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+p, .st-list-block__list {
+    font-size: @font-size;
+    font-weight: 400;
+}
+
+label {
+    width: 100%;
+}
+
+.cursor {
+    &-help {
+        cursor: help;
+    }
+    &-pointer {
+        cursor: pointer;
+    }
+}
+
+.content {
+    padding-top: 50px;
+}
+
+.col-left {
+    p {
+        text-align: center;
+    }
+    .btn {
+        width: 80%;
+    }
+}
+
+.col-right {
+    overflow-y: auto;
+
+    .panel-group {
+        .panel {
+            margin-top: 0;
+        }
+    }
+}
+
+#tree .badge {
+    background-color: transparent;
+}
+
+/**
+ * Sir Trevor blocks settings
+ */
+.st-block-help {
+    position: relative;
+
+    p, h4 {
+        margin: 0 0 10px 0;
+    }
+
+    .st-block__inner {
+        border: 1px solid #ddd;
+        background: #f7f7f7;
+        cursor: pointer;
+        margin-top: 2em;
+        margin-bottom: 2em;
+        padding: 1em 0 1em;
+    }
+}
+
+.st-text-block p {
+
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+
+.st-block-controls__button .st-icon {
+    margin: 0;
+}
+
+.btn {
+    width: 130px;
+}

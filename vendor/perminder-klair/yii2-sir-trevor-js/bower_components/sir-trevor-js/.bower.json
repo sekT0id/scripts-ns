@@ -1,0 +1,28 @@
+{
+  "name": "sir-trevor-js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "src/!(blocks)",
+    "spec",
+    "examples",
+    "website",
+    "BrowserRunner.html"
+  ],
+  "dependencies": {
+    "es5-shim": "~v4.0.3",
+    "es6-shim": "~0.21.0",
+    "Eventable": "~1.0.1",
+    "jquery": "~1.9.1"
+  },
+  "homepage": "https://github.com/perminder-klair/sir-trevor-js",
+  "_release": "87207636c2",
+  "_resolution": {
+    "type": "commit",
+    "commit": "87207636c21d2689e684e419d1e94e29534b1657"
+  },
+  "_source": "https://github.com/perminder-klair/sir-trevor-js.git",
+  "_target": "87207636c21d2689e684e419d1e94e29534b1657",
+  "_originalSource": "https://github.com/perminder-klair/sir-trevor-js.git"
+}
