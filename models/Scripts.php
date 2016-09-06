@@ -70,7 +70,7 @@ class Scripts extends \yii\db\ActiveRecord
     /**
      * Возвращает корневой элемент
      */
-    public function checkRoot()
+    public function getRoot()
     {
         return self::find()->where(['lft' => 0])->one();
     }
@@ -82,7 +82,7 @@ class Scripts extends \yii\db\ActiveRecord
     {
         // Проверяем существование корня
         // если нет, то создаем
-        if (!$this->checkRoot()) {
+        if (!$this->getRoot()) {
             $this->createRoot();
         }
 
@@ -94,7 +94,7 @@ class Scripts extends \yii\db\ActiveRecord
                 ->where(['id' => $parentScript])
                 ->one();
     	} else {
-            $parentAttributes = $this->checkRoot();
+            $parentAttributes = $this->getRoot();
         }
 
         //выделяем место в дереве, для добавления нового элемента

@@ -4,18 +4,9 @@
 
 use yii\helpers\Url;
 use app\models\Script;
+use app\widgets\TreeView;
 
 $this->title = 'My Yii Application';
-
-$this->registerJsFile('/js/jQuery.tree.js', [
-    'depends' => 'yii\web\JqueryAsset',
-    'position' => $this::POS_END,
-]);
-
-$this->registerJsFile('/js/example.js', [
-    'depends' => 'yii\web\JqueryAsset',
-    'position' => $this::POS_END,
-]);
 
 ?>
 
@@ -26,6 +17,7 @@ $this->registerJsFile('/js/example.js', [
 
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
+
                 <div class="form-group col-sm-6 text-left">
                     <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-success">Добавить</a>
                 </div>
@@ -36,14 +28,17 @@ $this->registerJsFile('/js/example.js', [
 
             </div>
             <div class="col-sm-6 col-sm-offset-3">
-                <ul id="tree">
-                    <?php foreach ($tree as $item) :?>
-                        <li>
-                            <a href="<?php echo Url::toRoute(['script/edit', 'script' => $item->id]);?>">
-                                <?php echo $item->name;?></li>
-                            </a>
-                    <?php endforeach;?>
-                </ul>
+
+                <?php echo TreeView::widget([
+                    'treeType' => 'simpleList',
+                    'nodeOptions' => [
+                        'class' => 'list-group',
+                    ],
+                    'itemOptions' => [
+                        'class' => 'list-group-item node-tree',
+                    ]
+                ]);?>
+
             </div>
         </div>
 

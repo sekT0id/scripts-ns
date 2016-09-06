@@ -1,6 +1,6 @@
 <?php
 
-namespace app\extended\widgets;
+namespace app\widgets;
 
 use Yii;
 use yii\base\Widget;
@@ -8,7 +8,7 @@ use yii\base\Widget;
 /**
  * Базовый виджет, реализующий основной функционал.
  */
-class Base extends Widget
+class BaseWidget extends Widget
 {
     protected $_name = null;
 

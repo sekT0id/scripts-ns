@@ -74,12 +74,6 @@ class ScriptController extends BaseController
 
         $script = $this->getScriptById($model->id);
 
-        if ($script->path) {
-            $searchedPath = $script->path.'.';
-        }
-
-        $searchedPath = $searchedPath.$script->id;
-
         $script->delete();
         Scripts::deleteAll(['like', 'path', $searchedPath.'%', false]);
 
@@ -96,14 +90,17 @@ class ScriptController extends BaseController
 
         $script = new Scripts();
 
+        if ($model->id) {
+            $script->id = $model->id;
+            $script->isNewRecord = false;
+        }
+
         $script->name   = $model->name;
         $script->data   = $model->text;
 
         // Если передан id скрипта,
         // значит находимся в режиме редактирования
         if ($model->id) {
-            $script->id = $model->id;
-            $script->isNewRecord = false;
             $script->save();
         // Иначе режим добавления
         } else {

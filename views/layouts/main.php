@@ -6,7 +6,7 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 
-use app\extended\widgets\base;
+use app\widgets\BaseWidget;
 
 AppAsset::register($this);
 ?>
@@ -26,7 +26,7 @@ AppAsset::register($this);
 
     <div class="wrap">
 
-        <?php echo base::widget(['show' => 'nav']);?>
+        <?php echo BaseWidget::widget(['show' => 'nav']);?>
 
         <div class="content container-fluid">
 
