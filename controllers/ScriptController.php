@@ -34,16 +34,8 @@ class ScriptController extends BaseController
      */
     public function actionView($script)
     {
-        $script = $this->getScriptById($script);
-
-        $scriptRecent = Scripts::find()
-            ->andWhere(['>', 'lft', $script->lft])
-            ->andWhere(['<', 'rgt', $script->rgt])
-            ->andWhere(['lvl' => $script->lvl + 1])
-            ->orderBY([
-                'lft' => SORT_ASC,
-            ])
-            ->all();
+        $script = Scripts::getScriptById($script);
+        $scriptRecent = Scripts::getScriptChildren($script);
 
         return $this->render('view', [
             'script'       => $script,
@@ -59,12 +51,11 @@ class ScriptController extends BaseController
     public function actionEdit($script)
     {
         $model = new Form;
-        $scripts = Scripts::find()->all();
 
         return $this->render('edit', [
             'model' => $model,
             'parentId' => false,
-            'script' => $this->getScriptById($script),
+            'script' => Scripts::getScriptById($script),
         ]);
     }
 
@@ -74,23 +65,13 @@ class ScriptController extends BaseController
     public function actionDelete()
     {
         $model = new Form();
+        $script = new Scripts;
+
         $model->load(Yii::$app->request->post());
-
-        $script = $this->getScriptById($model->id);
-
-        $script->delete();
-        Scripts::deleteAll([
-            'and',
-            ['>', 'lft', $script->lft],
-            ['<', 'rgt', $script->rgt]
-        ]);
-
-        Script::updateAllCounters(
-            ['rgt' => ],
-
-        );
+        $script->del($model->id);
 
         return $this->goHome();
+        exit;
     }
 
     /**
@@ -99,9 +80,9 @@ class ScriptController extends BaseController
     public function actionSave()
     {
         $model = new Form();
-        $model->load(Yii::$app->request->post());
-
         $script = new Scripts();
+
+        $model->load(Yii::$app->request->post());
 
         if ($model->id) {
             $script->id = $model->id;
@@ -122,22 +103,5 @@ class ScriptController extends BaseController
 
         return $this->goHome();
         exit;
-    }
-
-
-    /**
-     * Search script by id.
-     *
-     * @return string
-     */
-    protected function getScriptById($id = null)
-    {
-        if ($id !== null) {
-            if ($script = Scripts::find()->andWhere(['id' => $id])->one()) {
-                return $script;
-            }
-            return false;
-        }
-        return false;
     }
 }

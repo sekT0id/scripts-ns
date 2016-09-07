@@ -13,10 +13,10 @@ $decodedText = json_decode($script->data);
 
         <div class="row">
 
-            <div class="col-md-6 col-md-offset-3">
-                <h1><?php echo $script->name;?></h1>
+            <h1><?php echo $script->name;?></h1>
 
-                <div class="jumbotron">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="card card-block">
 
                     <?php foreach($decodedText->data as $key => $block) :?>
 
@@ -33,22 +33,25 @@ $decodedText = json_decode($script->data);
                         <?php endif;?>
 
                     <?php endforeach;?>
-                </div>
 
+                </div>
             </div>
 
-
             <div class="col-md-6 col-md-offset-3 text-center">
-                <div class="material">
-                    <?php if (isset($scriptRecent)) :?>
-                        <?php foreach ($scriptRecent as $recent) :?>
+                <div class="card card-block">
 
-                            <a class="btn btn-lg btn-default" href="<?php echo Url::toRoute(['/script/view', 'script' => $recent->id]);?>">
+                    <?php if (isset($scriptRecent) && $scriptRecent != []) :?>
+                        <?php foreach ($scriptRecent as $recent) :?>
+                            <a class="btn btn-default btn-block" href="<?php echo Url::toRoute(['/script/view', 'script' => $recent->id]);?>">
                                 <?php echo $recent->name;?>
                             </a>
-
                         <?php endforeach;?>
+                    <?php else: ?>
+                        <a class="btn btn-warning btn-block" href="<?php echo Url::toRoute(['/site/index']);?>">
+                            На главную
+                        </a>
                     <?php endif;?>
+
                 </div>
             </div>
 

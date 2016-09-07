@@ -25,6 +25,8 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
 
         <div class="row">
 
+            <h1>Редактор скрипта</h1>
+
             <?php $form = ActiveForm::begin([
                 'action' => ['script/save'],
                 'enableClientValidation' => true,
@@ -32,8 +34,25 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                 'options' => ['enctype' => 'multipart/form-data']
             ]);?>
 
-                <div class="col-center col-md-9">
-                    <h1>Редактор скрипта</h1>
+                <div class="col-md-6 col-md-offset-3">
+
+                    <div class="card card-block">
+
+                        <?php // id редактируемого скрипта.
+                        echo $form->field($model, 'id')
+                            ->hiddenInput(['value' => ($script) ? $script->id : false])
+                            ->label(false);?>
+                        <?php // id редактируемого скрипта.
+                        echo $form->field($model, 'parentId')
+                            ->hiddenInput(['value' => ($parentId) ? $parentId : null])
+                            ->label(false);?>
+                        <?php echo $form->field($model, 'name')
+                            ->input('text', [
+                                'value' => ($script) ? $script->name : false,
+                            ])
+                            ->label('Имя скрипта *') ?>
+
+                    </div>
 
                     <?php // Подключаем поле для редактора Sir Trevor
                     echo $form->field($model, 'text')
@@ -47,59 +66,40 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
 
                 </div>
 
-                <div class="col-right col-md-3 text-center">
-                    <h2>Настройки</h2>
+                <div class="col-md-2">
 
-                    <div class="panel panel-default">
-                        <div class="panel-body">
+                    <div class="card card-block text-center">
 
-                            <?php echo $form->field($model, 'name')
-                                ->input('text', [
-                                    'value' => ($script) ? $script->name : false,
-                                ])
-                                ->label('Имя скрипта *') ?>
+                        <?php echo Html::submitButton('Сохранить', [
+                            'class' => 'btn btn-fixed btn-success',
+                        ]);?>
+                        <?php echo Html::tag('a', 'Отмена', [
+                            'class' => 'btn btn-fixed btn-warning',
+                            'href' => Url::toRoute(['site/index']),
+                        ]);?>
 
-                            <?php // id редактируемого скрипта.
-                            echo $form->field($model, 'id')
-                                ->hiddenInput(['value' => ($script) ? $script->id : false])
-                                ->label(false);?>
-
-                            <?php // id редактируемого скрипта.
-                            echo $form->field($model, 'parentId')
-                                ->hiddenInput(['value' => ($parentId) ? $parentId : null])
-                                ->label(false);?>
-
-                            <?php echo Html::submitButton('Сохранить', [
-                                'class' => 'btn btn-success',
-                            ]);?>
-
-                            <?php echo Html::tag('a', 'Отмена', [
-                                'class' => 'btn btn-warning',
-                                'href' => Url::toRoute(['site/index']),
-                            ]);?>
-
-                        </div>
                     </div>
 
                     <?php if ($script) :?>
-                        <div class="panel panel-danger">
-                            <div class="panel-body bg-danger">
+                        <div class="card">
+                           <div class="card-block bg-danger text-center">
 
                                 <?php echo Html::tag('button', 'Удалить', [
                                     'id'    => 'delete-button',
                                     'type'  => 'button',
-                                    'class' => 'btn btn-danger',
+                                    'class' => 'btn btn-fixed btn-danger',
                                     'data-toggle' => 'modal',
                                     'data-target' => '#myModal',
-                                    //'href'  => Url::toRoute(['script/delete', 'script' => $script->id]),
                                 ]);?>
 
-                            </div>
+                           </div>
                         </div>
                     <?php endif;?>
 
                 </div>
+
             <?php ActiveForm::end();?>
+
         </div>
     </div>
 </div>

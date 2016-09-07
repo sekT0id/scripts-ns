@@ -2,29 +2,35 @@
 
 @import (less) url(mixins.less);
 
-@bodyColor: #eee;
+@bodyBgColor: #eee;
+
+@panelsBgColor: #fff;
+@panelsPadding: 1.25rem;
+
+@stdMarginBottom: 15px;
 
 @text-color: #42474b;
-@font-size: 14px;
+
+@stdFontSize: 14px;
 @font-weight: 400;
 
 html, body {
     min-height: 100%;
+
+    font-size: @stdFontSize;
+    font-weight: 400;
     color: @text-color;
 }
 
 h1, h2, h4 {
     text-align: center;
     font-weight: 700;
+
+    margin-bottom: @stdMarginBottom;
 }
 
 h4 {
     font-size: 16px;
-}
-
-p, .st-list-block__list {
-    font-size: @font-size;
-    font-weight: 400;
 }
 
 label {
@@ -40,12 +46,17 @@ label {
     }
 }
 
+.navbar-brand,
+.navbar-nav>li>a {
+    line-height: 30px;
+}
+
 .wrap {
-    //background: @bodyColor;
+    background: @bodyBgColor;
 }
 
 .content {
-    padding-top: 50px;
+    padding-top: 80px;
 }
 
 #tree {
@@ -69,26 +80,28 @@ label {
 /**
  * Sir Trevor blocks settings
  */
-.st-block-help {
-    position: relative;
+.st-top-controls {
+    height: 0;
+    min-height: 0;
+}
 
-    p, h4 {
-        margin: 0 0 10px 0;
-    }
+.field-sir-trevor-textArea {
 
-    .st-block__inner {
-        border: 1px solid #ddd;
-        background: #f7f7f7;
-        cursor: pointer;
-        margin-top: 2em;
-        margin-bottom: 2em;
-        padding: 1em 0 1em;
-    }
+    background: @panelsBgColor;
+
+    padding: @panelsPadding;
+    margin-bottom: @stdMarginBottom;
+
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16),
+                0 2px 10px 0 rgba(0, 0, 0, .12);
 }
 
 .st-text-block p {
-
     margin: 10px 0 0 0;
+
+    font-size: @stdFontSize;
     text-align: center;
 }
 
@@ -96,6 +109,41 @@ label {
     margin: 0;
 }
 
+input[type=text] {
+    font-size: @stdFontSize;
+    font-weight: 700;
+}
+
+#form-name,
+.help-block {
+    margin-bottom: 0;
+}
+
 .btn {
-    width: 130px;
+    &-fixed {
+        width: 130px;
+    }
+    &-block {
+        margin-bottom: @stdMarginBottom;
+    }
+    &-block:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.card {
+    background: @panelsBgColor;
+    margin-bottom: @stdMarginBottom;
+
+    &-block {
+        padding: @panelsPadding;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    .form-group {
+        margin-bottom: 0;
+    }
 }

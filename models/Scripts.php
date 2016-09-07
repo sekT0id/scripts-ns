@@ -69,6 +69,8 @@ class Scripts extends \yii\db\ActiveRecord
 
     /**
      * Возвращает корневой элемент
+     *
+     * @return object
      */
     public function getRoot()
     {
@@ -77,6 +79,9 @@ class Scripts extends \yii\db\ActiveRecord
 
 	/**
     * Добавляет дочерний элемент по id родителя
+    *
+    * @var int $parentId
+    * @return boolean
     */
     public function add($parentId = null)
     {
@@ -86,10 +91,9 @@ class Scripts extends \yii\db\ActiveRecord
             $this->createRoot();
         }
 
-
 		// Если не указан родительский скрипт
         // то добавляем новый элемент от корня
-    	if($parentId !== null){
+    	if($parentId != null){
             //Начитываем параметры родительского элемента
             $parentAttributes = self::find()
                 ->where(['id' => $parentId])
@@ -99,14 +103,114 @@ class Scripts extends \yii\db\ActiveRecord
         }
 
         //выделяем место в дереве, для добавления нового элемента
-        self::updateAllCounters(['rgt' => 2], ['>=', 'rgt', $parentAttributes->rgt]);
-        self::updateAllCounters(['lft' => 2], ['>=', 'lft', $parentAttributes->rgt]);
+        self::updateAllCounters(
+            ['rgt' => 2],
+            ['>=', 'rgt', $parentAttributes->rgt]
+        );
+        self::updateAllCounters(
+            ['lft' => 2],
+            ['>=', 'lft', $parentAttributes->rgt]
+        );
 
         //добавляем новый элемент
         $this->lft = $parentAttributes->rgt;
         $this->rgt = $parentAttributes->rgt+1;
         $this->lvl = $parentAttributes->lvl+1;
-        $this->insert();
+
+        if ($this->insert()) {
+            return true;
+        }
+        return false;
+    }
+
+	/**
+    * Удалить скрипт и все его дочерние элементы по id
+    *
+    * @var int $scriptId
+    * @return boolean
+    */
+    public function del($scriptId = null)
+    {
+        if ($scriptId !== null) {
+
+            $script = self::getScriptById($scriptId);
+
+            self::deleteAll([
+                'and',
+                ['>=', 'lft', $script->lft],
+                ['<=', 'rgt', $script->rgt],
+            ]);
+            self::updateAllCounters(
+                ['rgt' => -($this->getAbs($script))],
+                ['>', 'rgt', $script->rgt]
+            );
+            self::updateAllCounters(
+                ['lft' =>  -($this->getAbs($script))],
+                ['>', 'lft', $script->rgt]
+            );
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Возвращает количество дочерних элементов
+     *
+     * @var object $script
+     * @return boolean / int
+     */
+    public function getAbs($script = null)
+    {
+        if ($script !== null && is_object($script)) {
+            return $script->rgt - $script->lft + 1;
+        }
+        return false;
+    }
+
+    /**
+     * Search script by id.
+     *
+     * @var int $scriptId
+     * @return boolean / object
+     */
+    public static function getScriptById($scriptId = null)
+    {
+        if ($scriptId !== null) {
+            if ($script = self::find()->andWhere(['id' => $scriptId])->one()) {
+                return $script;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * Search script by id.
+     *
+     * @var int / object $script
+     * @return boolean / object
+     */
+    public static function getScriptChildren($script = null)
+    {
+        if ($script !== null) {
+            if (is_int($script)) {
+                $script = self::getScriptById($script);
+            }
+
+            if (is_object($script)) {
+
+                return self::find()
+                    ->andWhere(['>', 'lft', $script->lft])
+                    ->andWhere(['<', 'rgt', $script->rgt])
+                    ->andWhere(['lvl' => $script->lvl + 1])
+                    ->orderBY([
+                        'lft' => SORT_ASC,
+                    ])
+                    ->all();
+            }
+            return false;
+        }
+        return false;
     }
 
     /**

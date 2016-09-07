@@ -11,23 +11,12 @@ $this->title = 'My Yii Application';
 ?>
 
 <div class="site-index">
-    <h1>Список скриптов</h1>
-
     <div class="body-content">
-
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
 
-                <div class="form-group col-sm-6 text-left">
-                    <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-success">Добавить</a>
-                </div>
-                <div class="form-group col-sm-6 text-right">
-                    <button type="button" class="material btn btn-warning" id="btn-expand-all">Развернуть все</button>
-                    <button type="button" class="btn btn-danger" id="btn-collapse-all">Свернуть все</button>
-                </div>
+            <h1>Список скриптов</h1>
 
-            </div>
-            <div class="col-sm-6 col-sm-offset-3">
+            <div class="col-md-6 col-md-offset-3">
 
                 <?php echo TreeView::widget([
                     'treeType' => 'simpleList',
@@ -40,6 +29,17 @@ $this->title = 'My Yii Application';
                 ]);?>
 
             </div>
+
+            <div class="col-md-2">
+                <div class="card card-block text-center">
+                    <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-fixed btn-success">Добавить</a>
+                </div>
+                <div class="card card-block text-center">
+                    <button type="button" class="btn btn-fixed btn-warning" id="btn-expand-all">Развернуть все</button>
+                    <button type="button" class="btn btn-fixed btn-danger" id="btn-collapse-all">Свернуть все</button>
+                </div>
+            </div>
+
         </div>
 
     </div>
