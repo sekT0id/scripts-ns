@@ -30,6 +30,21 @@ $this->title = 'My Yii Application';
 
             </div>
 
+          <div class="col-md-6 col-md-offset-3">
+
+                <?php echo TreeView::widget([
+                    'treeType' => 'nestedList',
+                    'nodeOptions' => [
+                        'class' => '',
+                    ],
+                    'itemOptions' => [
+                        'class' => '',
+                    ]
+                ]);?>
+
+            </div>
+
+
             <div class="col-md-2">
                 <div class="card card-block text-center">
                     <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-fixed btn-success">Добавить</a>
