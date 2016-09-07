@@ -8,6 +8,7 @@ use yii\base\Model;
 class Form extends Model
 {
     public $id;
+    public $parentId;
     public $text;
     public $name;
 
@@ -24,6 +25,7 @@ class Form extends Model
                 'required'],
             [[
                 'name',
+                'parentId',
                 'text',
                 'id',
             ],

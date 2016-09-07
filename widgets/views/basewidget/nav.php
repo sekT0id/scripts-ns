@@ -9,15 +9,16 @@ NavBar::begin([
     'brandLabel' => 'My Company',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
-        'class' => 'navbar-inverse navbar-fixed-top',
+        'class' => 'navbar navbar-dark navbar-fixed-top white',
+        //'class' => 'navbar navbar-dark navbar-fixed-top bg-primary',
     ],
 ]);
 
 echo Nav::widget([
-    'options' => ['class' => 'navbar-nav navbar-right'],
+    'options' => ['class' => 'nav navbar-nav navbar-right'],
     'items' => [
         ['label' => 'На главную', 'url' => ['/site/index']],
-        ['label' => 'Редактор', 'url' => ['/script/new']],
+        ['label' => 'Редактор',   'url' => ['/script/new']],
         Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/site/login']]
         ) : (
@@ -33,3 +34,6 @@ echo Nav::widget([
     ],
 ]);
 NavBar::end();
+// http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html
+// http://mdbootstrap.com/components/panels/
+?>

@@ -2,6 +2,8 @@
 
 @import (less) url(mixins.less);
 
+@bodyColor: #eee;
+
 @text-color: #42474b;
 @font-size: 14px;
 @font-weight: 400;
@@ -38,31 +40,30 @@ label {
     }
 }
 
+.wrap {
+    //background: @bodyColor;
+}
+
 .content {
     padding-top: 50px;
 }
 
-.col-left {
-    p {
-        text-align: center;
-    }
-    .btn {
-        width: 80%;
-    }
-}
+#tree {
+    .badge {
+        background-color: transparent;
 
-.col-right {
-    overflow-y: auto;
+        width: 30px;
+        height: 30px;
 
-    .panel-group {
-        .panel {
-            margin-top: 0;
+        a {
+            display: inline-block;
+            font-size: 15px;
         }
     }
 }
 
-#tree .badge {
-    background-color: transparent;
+.indent {
+    margin: 0 10px;
 }
 
 /**

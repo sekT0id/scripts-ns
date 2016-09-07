@@ -14,13 +14,14 @@ class ScriptController extends BaseController
      *
      * @return string
      */
-    public function actionNew()
+    public function actionNew($script = null)
     {
         $model = new Form;
         $scripts = Scripts::find()->all();
 
         return $this->render('edit', [
             'model' => $model,
+            'parentId' => $script,
             'script' => false,
             'scripts' => $scripts,
         ]);
@@ -36,9 +37,11 @@ class ScriptController extends BaseController
         $script = $this->getScriptById($script);
 
         $scriptRecent = Scripts::find()
-//            ->andWhere(['path' => $searchedPath])
+            ->andWhere(['>', 'lft', $script->lft])
+            ->andWhere(['<', 'rgt', $script->rgt])
+            ->andWhere(['lvl' => $script->lvl + 1])
             ->orderBY([
-                //'path' => SORT_ASC,
+                'lft' => SORT_ASC,
             ])
             ->all();
 
@@ -60,6 +63,7 @@ class ScriptController extends BaseController
 
         return $this->render('edit', [
             'model' => $model,
+            'parentId' => false,
             'script' => $this->getScriptById($script),
         ]);
     }
@@ -75,7 +79,16 @@ class ScriptController extends BaseController
         $script = $this->getScriptById($model->id);
 
         $script->delete();
-        Scripts::deleteAll(['like', 'path', $searchedPath.'%', false]);
+        Scripts::deleteAll([
+            'and',
+            ['>', 'lft', $script->lft],
+            ['<', 'rgt', $script->rgt]
+        ]);
+
+        Script::updateAllCounters(
+            ['rgt' => ],
+
+        );
 
         return $this->goHome();
     }
@@ -104,7 +117,7 @@ class ScriptController extends BaseController
             $script->save();
         // Иначе режим добавления
         } else {
-            $script->add();
+            $script->add($model->parentId);
         }
 
         return $this->goHome();

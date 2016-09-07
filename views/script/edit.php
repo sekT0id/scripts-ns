@@ -64,6 +64,11 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                                 ->hiddenInput(['value' => ($script) ? $script->id : false])
                                 ->label(false);?>
 
+                            <?php // id редактируемого скрипта.
+                            echo $form->field($model, 'parentId')
+                                ->hiddenInput(['value' => ($parentId) ? $parentId : null])
+                                ->label(false);?>
+
                             <?php echo Html::submitButton('Сохранить', [
                                 'class' => 'btn btn-success',
                             ]);?>

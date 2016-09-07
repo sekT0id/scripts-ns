@@ -33,20 +33,17 @@ label {
 .content {
   padding-top: 50px;
 }
-.col-left p {
-  text-align: center;
-}
-.col-left .btn {
-  width: 80%;
-}
-.col-right {
-  overflow-y: auto;
-}
-.col-right .panel-group .panel {
-  margin-top: 0;
-}
 #tree .badge {
   background-color: transparent;
+  width: 30px;
+  height: 30px;
+}
+#tree .badge a {
+  display: inline-block;
+  font-size: 15px;
+}
+.indent {
+  margin: 0 10px;
 }
 /**
  * Sir Trevor blocks settings

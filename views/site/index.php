@@ -22,7 +22,7 @@ $this->title = 'My Yii Application';
                     <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-success">Добавить</a>
                 </div>
                 <div class="form-group col-sm-6 text-right">
-                    <button type="button" class="btn btn-warning" id="btn-expand-all">Развернуть все</button>
+                    <button type="button" class="material btn btn-warning" id="btn-expand-all">Развернуть все</button>
                     <button type="button" class="btn btn-danger" id="btn-collapse-all">Свернуть все</button>
                 </div>
 

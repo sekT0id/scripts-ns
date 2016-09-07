@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     // Подключаем дерево
     $('#tree').treeview({
-        data: treeData,
+        //data: treeData,
         enableLinks: true,
         showTags: true,
     });

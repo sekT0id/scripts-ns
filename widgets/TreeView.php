@@ -47,13 +47,18 @@ class TreeView extends BaseWidget
         foreach ($this->model as $item) {
             // Добавляем отступы для элементов
             // Имитация вложенности
-            for ($i = 1; $i < $item->lvl; $i++) {
-                $list .= Html::tag($this->indentTag, '', $this->indentOptions);
-            }
 
             // Исключаем из вывода корень дерева
             if ($item->lft != 0) {
-                $list .= Html::tag($this->itemTag, $this->render('treeview/_item', ['item' => $item]), $this->itemOptions);
+                //$list .= Html::tag($this->itemTag, $this->render('treeview/_item', ['item' => $item]), $this->itemOptions);
+                $list .= Html::beginTag($this->itemTag, $this->itemOptions);
+
+                for ($i = 1; $i < $item->lvl; $i++) {
+                    $list .= Html::tag($this->indentTag, '', $this->indentOptions);
+                }
+
+                $list .= $this->render('treeview/_item', ['item' => $item]);
+                $list .= Html::endTag($this->itemTag);
             }
         }
         return $this->openTag() . $list . $this->closeTag();
@@ -90,7 +95,9 @@ class TreeView extends BaseWidget
         parent::init();
 
         if ($this->model == null) {
-            $this->model = Scripts::find()->all();
+            $this->model = Scripts::find()
+                ->orderBy('lft')
+                ->all();
         }
 
         if ($this->treeType == 'simpleList') {

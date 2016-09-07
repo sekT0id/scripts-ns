@@ -16,8 +16,6 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        return $this->render('index', [
-            'tree' => Scripts::find()->all(),
-        ]);
+        return $this->render('index');
     }
 }

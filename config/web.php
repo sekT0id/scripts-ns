@@ -47,6 +47,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 ''                    => '/site/index',
+                'new/<script:\d+>'    => '/script/new',
                 'new'                 => '/script/new',
                 'login'               => '/site/login',
                 'view/<script:\d+>'   => '/script/view',

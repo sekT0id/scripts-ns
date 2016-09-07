@@ -78,7 +78,7 @@ class Scripts extends \yii\db\ActiveRecord
 	/**
     * Добавляет дочерний элемент по id родителя
     */
-    public function add($parentScript = null)
+    public function add($parentId = null)
     {
         // Проверяем существование корня
         // если нет, то создаем
@@ -86,12 +86,13 @@ class Scripts extends \yii\db\ActiveRecord
             $this->createRoot();
         }
 
+
 		// Если не указан родительский скрипт
         // то добавляем новый элемент от корня
-    	if(!$parentScript === null){
+    	if($parentId !== null){
             //Начитываем параметры родительского элемента
             $parentAttributes = self::find()
-                ->where(['id' => $parentScript])
+                ->where(['id' => $parentId])
                 ->one();
     	} else {
             $parentAttributes = $this->getRoot();
