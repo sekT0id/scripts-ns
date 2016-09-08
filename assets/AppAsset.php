@@ -19,10 +19,8 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         '/libs/bootstrap/css/bootstrap.min.css',
-        '/libs/mbd/css/mdb.min.css',
-        //'/libs/mbd/css/mdb-bs3.min.css',
-        //'/libs/bootstrap/css/bootstrap-treeview.min.css',
         '/libs/sir-trevor/sir-trevor.min.css',
+        '/libs/mbd/css/mdb.min.css',
         '/css/site.css',
         '/css/extended.css',
     ];
@@ -30,7 +28,6 @@ class AppAsset extends AssetBundle
         '/libs/jquery/jquery.min.js',
         '/libs/bootstrap/js/bootstrap.min.js',
         '/libs/mbd/js/mdb.min.js',
-
         '/js/formManager.js',
     ];
     public $depends = [
