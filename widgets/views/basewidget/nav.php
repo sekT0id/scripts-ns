@@ -10,7 +10,6 @@ NavBar::begin([
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar navbar-dark navbar-fixed-top white',
-        //'class' => 'navbar navbar-dark navbar-fixed-top bg-primary',
     ],
 ]);
 

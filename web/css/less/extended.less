@@ -59,22 +59,52 @@ label {
     padding-top: 80px;
 }
 
-#tree {
-    .badge {
-        background-color: transparent;
 
-        width: 30px;
-        height: 30px;
+.badge {
+    background-color: transparent;
 
-        a {
-            display: inline-block;
-            font-size: 15px;
+    width: 30px;
+    height: 30px;
+
+    a {
+        display: inline-block;
+        font-size: 15px;
+    }
+}
+.btn-group {
+
+    button {
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        position: relative;
+
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 }
 
+/**
+ * Настройки блока "Отступ"
+ */
+
 .indent {
     margin: 0 10px;
+}
+
+.indent:last-child {
+    background-color: aquamarine;
+}
+
+/**
+ * Dropdown
+ */
+.dropdown-menu {
+    width: 230px;
 }
 
 /**
@@ -137,6 +167,7 @@ input[type=text] {
 
     &-block {
         padding: @panelsPadding;
+        min-width: 180px;
     }
 
     p:last-child {
@@ -145,5 +176,29 @@ input[type=text] {
 
     .form-group {
         margin-bottom: 0;
+    }
+}
+
+.navbar-toggle {
+    background: #2BBBAD;
+    height: 40px;
+}
+.navbar-toggle:before {
+    color: #fff;
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+}
+
+/**
+ * Easy tree options
+ */
+.easy-tree {
+
+    li {
+        padding: 10px 0 0 5px;
+    }
+
+    li > span {
+        //width: 100%;
     }
 }

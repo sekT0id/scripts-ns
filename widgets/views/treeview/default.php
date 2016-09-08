@@ -1,3 +1,3 @@
-<div id="tree" class="material">
+<div <?php echo $treeOptions;?>>
     <?php echo $treeView;?>
 </div>

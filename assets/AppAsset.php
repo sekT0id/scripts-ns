@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
     public $css = [
         '/libs/bootstrap/css/bootstrap.min.css',
         '/libs/sir-trevor/sir-trevor.min.css',
+        //'/libs/nice-tree/css/easyTree.css',
         '/libs/mbd/css/mdb.min.css',
         '/css/site.css',
         '/css/extended.css',
