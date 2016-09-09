@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use app\models\Script;
 use app\widgets\TreeView;
 
-$this->registerJsFile('/libs/nice-tree/src/easyTree.js', [
+$this->registerJsFile('/libs/nice-tree/src/sekT0id-tree.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
 ]);
@@ -27,6 +27,16 @@ $this->title = 'My Yii Application';
             <h1>Список скриптов</h1>
 
             <div class="col-md-6 col-md-offset-3">
+                <div class="card card-block">
+<!--                    <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-fixed btn-success">-->
+                    <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-default btn-block">
+                        Добавить
+                    </a>
+                </div>
+            </div>
+
+<!--
+            <div class="col-md-6 col-md-offset-3">
 
                 <?php echo TreeView::widget([
                     'indentContent' => '<span class="glyphicon glyphicon-option-vertical"></span>',
@@ -39,26 +49,25 @@ $this->title = 'My Yii Application';
                 ]);?>
 
             </div>
+-->
 
-            <div class="col-md-2">
-                <div class="card card-block text-center">
-                    <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-fixed btn-success">
-                        Добавить
-                    </a>
-                </div>
+
+           <div class="col-md-6 col-md-offset-3">
+                <?php echo TreeView::widget([
+                    'treeType' => 'nestedTree',
+                    'treeOptions' => [
+                        'class' => 'easy-tree card card-block',
+                    ],
+                    'indentContent' => '<span class="glyphicon glyphicon-option-vertical"></span>',
+                    'itemOptions' => [
+                        'class' => 'item',
+                    ],
+                    'nodeOptions' => [
+                        'class' => 'node',
+                    ],
+                ]);?>
             </div>
 
         </div>
-
-       <div class="col-md-6 col-md-offset-3">
-            <?php echo TreeView::widget([
-                'treeType' => 'nestedTree',
-                'treeOptions' => [
-                    'class' => 'easy-tree card card-block',
-                ],
-                'indentContent' => '<span class="glyphicon glyphicon-option-vertical"></span>',
-            ]);?>
-        </div>
-
     </div>
 </div>

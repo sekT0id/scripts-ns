@@ -108,10 +108,10 @@ class TreeView extends BaseWidget
 
     public function getNestedTree()
     {
-        $list = $this->nodeOpenTag();
+        //$list = $this->nodeOpenTag();
 
         foreach ($this->model as $item) {
-
+if ($item->lft != 0) {
             if ($this->level > $item->lvl) {
                 $list .= $this->nodeCloseTag();
                 $list .= $this->itemCloseTag();
@@ -123,7 +123,7 @@ class TreeView extends BaseWidget
 
             $list .= $this->itemOpenTag();
             $list .= $this->render('treeview/_nestedItem', ['item' => $item]);
-
+}
             $this->level = $item->lvl;
         }
 
@@ -132,7 +132,7 @@ class TreeView extends BaseWidget
             $list .= $this->itemCloseTag();
         }
 
-        $list .= $this->nodeCloseTag();
+        //$list .= $this->nodeCloseTag();
 
         return $list;
     }

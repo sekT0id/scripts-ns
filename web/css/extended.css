@@ -141,5 +141,68 @@ input[type=text] {
  * Easy tree options
  */
 .easy-tree li {
-  padding: 10px 0 0 5px;
+  padding: 0 0 0 20px;
+  position: relative;
+}
+.easy-tree li::before,
+.easy-tree li::after {
+  content: '';
+  left: 5px;
+  position: absolute;
+  right: auto;
+}
+.easy-tree li::before {
+  border-left: 1px solid #ddd;
+  bottom: 50px;
+  height: 100%;
+  top: -5px;
+  width: 1px;
+}
+.easy-tree li::after {
+  border-top: 1px solid #ddd;
+  height: 20px;
+  top: 17px;
+  width: 10px;
+}
+.easy-tree > ul > li::before,
+.easy-tree > ul > li::after {
+  border: 0;
+}
+.easy-tree li.item > span {
+  float: left;
+}
+.easy-tree .item-content {
+  padding: 10px 0 10px 25px;
+}
+.easy-tree .glyphicon {
+  line-height: 35px;
+}
+.easy-tree .glyphicon-folder-open {
+  color: #00695c;
+}
+.easy-tree .glyphicon-folder-close {
+  color: #00695c;
+}
+.easy-tree .glyphicon-file {
+  color: #2BBBAD;
+}
+.easy-tree .glyphicon-file-open {
+  color: #ffbb33;
+}
+.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-file,
+.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-open,
+.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-close {
+  -webkit-transition: all 2.5s;
+  -moz-transition: all 2.5s;
+  -o-transition: all 2.5s;
+  transition: all 2.5s;
+}
+.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-file {
+  color: #FF8800;
+}
+.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-open {
+  color: #CC0000;
+}
+.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-close {
+  color: #ff4444;
 }
