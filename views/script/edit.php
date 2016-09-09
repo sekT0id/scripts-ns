@@ -4,16 +4,13 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\helpers\Json;
 
-use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 
 $this->registerJsFile('/libs/sir-trevor/sir-trevor.min.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
 ]);
-
 $this->registerJsFile('/js/extended-sir-trevor.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
@@ -75,7 +72,7 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                         ]);?>
                         <?php echo Html::tag('a', 'Отмена', [
                             'class' => 'btn btn-fixed btn-warning',
-                            'href' => Url::toRoute(['site/index']),
+                            'href' => Url::toRoute(['site/view', 'alias' => 'scripts']),
                         ]);?>
 
                     </div>

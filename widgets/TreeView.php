@@ -2,6 +2,7 @@
 
 namespace app\widgets;
 
+use Yii;
 use yii\helpers\Html;
 use app\models\Scripts;
 use yii\base\InvalidConfigException;
@@ -12,10 +13,15 @@ class TreeView extends BaseWidget
     public $model = null;
 
     // Тип отрисовки дерева
-    public $treeType = 'simpleTree';
+    public $treeType = 'default';
     public $treeOptions = [
         'id' => 'tree',
     ];
+
+    // Тэг отступа для simpleList
+    public $indentTag = 'span';
+    public $indentContent = '';
+    public $indentOptions = ['class' => 'indent'];
 
     // Параметры тега обертки
     public $nodeTag = 'ul';
@@ -23,19 +29,19 @@ class TreeView extends BaseWidget
 
     // Параметры тега элемента
     public $itemTag = 'li';
-    public $itemTemplate = '_simpleItem';
     public $itemOptions = [];
-
-    // Тэг отступа для simpleList
-    public $indentTag = 'span';
-    public $indentContent = '';
-    public $indentOptions = ['class' => 'indent'];
+    public $itemTemplate = 'item';
 
     // Параметры для элемента "ссылка на скрипт"
-    public $linkTemplate = false;
+    public $linkTemplate = 'link';
 
     private $level = 0;
 
+    /**
+     * Возвращает html строку параметров тега
+     *
+     * @return Exception / string
+     */
     public function getTreeOptions()
     {
         $options = '';
@@ -51,7 +57,9 @@ class TreeView extends BaseWidget
     }
 
     /**
-     * Возвращает открывающий тег для ноды
+     * Формирует открывающий тег для ноды
+     *
+     * @return string
      */
     public function nodeOpenTag()
     {
@@ -59,33 +67,66 @@ class TreeView extends BaseWidget
     }
 
     /**
-     * Возвращает закрывающий тег для ноды
+     * Формирует закрывающий тег для ноды
+     *
+     * @return string
      */
     public function nodeCloseTag()
     {
         return Html::endTag($this->nodeTag);
     }
 
+    /**
+     * Формирует открывающий тег для элемента
+     *
+     * @return string
+     */
     public function itemOpenTag()
     {
         return Html::beginTag($this->itemTag, $this->itemOptions);
     }
 
+    /**
+     * Формирует закрывающий тег для элемента
+     *
+     * @return string
+     */
     public function itemCloseTag()
     {
         return Html::endTag($this->itemTag);
     }
 
-//    public function renderItem($viewName = null, $options = null) {
-//        return $this->render('treeview/_item', ['item' => $item])
-//    }
+    /**
+     * Возвращает отрендереный элемент
+     *
+     * @var string $viewName
+     * @var array $options
+     *
+     * @return Exception / boolean / string
+     */
+    public function renderItem($viewName = null, $options = []) {
+        $path = Yii::$app->basePath . '/widgets/views/treeview/' . $this->treeType . '/' . $viewName . '.php';
+
+        if ($viewName !== null) {
+            if (file_exists($path)) {
+                return $this->render("@app/widgets/views/treeview/" . $this->treeType . '/' . $viewName, $options);
+            }
+            return false;
+        }
+        throw new InvalidConfigException('Необходимо задать имя view файла');
+    }
 
     /**
-     * Формируем дерево
+     * Формируем простое дерево (default)
+     *
+     * SQL - order by 'left' attribute for Nested Sets
+     * SQL - order by PK for other '2D' sets
+     *
+     * @return string
      */
     public function getSimpleTree()
     {
-        $list = '';
+        $output = '';
 
         foreach ($this->model as $item) {
 
@@ -93,61 +134,90 @@ class TreeView extends BaseWidget
             if ($item->lft != 0) {
 
                 // Открываем тэг элемента
-                $list .= $this->itemOpenTag();
+                $output .= $this->itemOpenTag();
 
                 // Добавляем отступы
                 for ($i = 1; $i < $item->lvl; $i++) {
-                    $list .= Html::tag($this->indentTag, $this->indentContent, $this->indentOptions);
+                    $output .= Html::tag($this->indentTag, $this->indentContent, $this->indentOptions);
                 }
 
                 // Рендерим контент элемента из вьюшки
-                $list .= $this->render('treeview/_simpleItem', ['item' => $item]);
+                $output .= $this->renderItem($this->itemTemplate, ['item' => $item]);
 
                 // закрываем тег элемента
-                $list .= $this->itemCloseTag();
+                $output .= $this->itemCloseTag();
             }
         }
-        return $this->nodeOpenTag() . $list . $this->nodeCloseTag();
+        return $this->nodeOpenTag() . $output . $this->nodeCloseTag();
     }
 
+    /**
+     * Формируем сложное вложенное дерево
+     * на основе набора Nested Sets
+     *
+     * SQL - order by 'left' attribute
+     *
+     * @return string
+     */
     public function getNestedTree()
     {
-        //$list = $this->nodeOpenTag();
-        $list = '';
+        $output = '';
 
         foreach ($this->model as $item) {
+
+            // Исключаем из вывода корень дерева
             if ($item->lft != 0) {
+
+                // Если уровень уменьшился, то закрываем теги
                 if ($this->level > $item->lvl) {
-                    $list .= $this->nodeCloseTag();
-                    $list .= $this->itemCloseTag();
+                    // Разница в уровнях
+                    // Чтобы отслеживать резкие перепады вложенности
+                    $lvlDifference = $this->level - $item->lvl;
+
+                    // Закрываем открытые элементы в зависимости
+                    // от разности уровня
+                    for ($i=1; $i<=$lvlDifference; $i++) {
+                        $output .= $this->nodeCloseTag();
+                        $output .= $this->itemCloseTag();
+                    }
                 }
 
+                // Если уровень увеличился, то открываем
+                // новую ноду.
                 if ($this->level < $item->lvl) {
-                    $list .= $this->nodeOpenTag();
+                    $output .= $this->nodeOpenTag();
                 }
 
-                $list .= $this->itemOpenTag();
+                // Формируем элемент дерева
+                $output .= $this->itemOpenTag();
 
-                if ($item->link && $this->linkTemplate) {
-                    $list .= $this->render('treeview/'.$this->linkTemplate, ['item' => $item]);
+                // Для элемента ссылки и обычного элемента
+                // выбираем свою вьюшку для отображения
+                if ($item->link) {
+                    $output .= $this->renderItem($this->linkTemplate, ['item' => $item]);
                 } else {
-                    $list .= $this->render('treeview/'.$this->itemTemplate, ['item' => $item]);
+                    $output .= $this->renderItem($this->itemTemplate, ['item' => $item]);
                 }
-
             }
+            // Закрыв при необходимости все открытые теги,
+            // уравниваем уровни виджета и набора Nested Sets
             $this->level = $item->lvl;
         }
 
+        // Если закончили отрисовку дерева не на первом
+        // уровне, то закрываем необходимое количество тегов
         for ($i = 1; $i < $this->level; $i++) {
-            $list .= $this->nodeCloseTag();
-            $list .= $this->itemCloseTag();
+            $output .= $this->nodeCloseTag();
+            $output .= $this->itemCloseTag();
         }
-
-        //$list .= $this->nodeCloseTag();
-
-        return $list;
+        return $output;
     }
 
+    /**
+     * init function
+     *
+     * @return string
+     */
     public function init()
     {
         parent::init();
@@ -158,12 +228,17 @@ class TreeView extends BaseWidget
                 ->all();
         }
 
+        // Разбираем опции для тега дерева
         $this->data['treeOptions'] = $this->getTreeOptions();
 
-        if ($this->treeType == 'simpleTree') {
+        // Выбираем вариант отображения
+        // Простое дерево (по умолчанию)
+        if ($this->treeType == 'default') {
             $this->data['treeView'] = $this->getSimpleTree();
         }
-        if ($this->treeType == 'nestedTree') {
+
+        // Дерево на основе набора Nested Sets
+        if ($this->treeType != 'default') {
             $this->data['treeView'] = $this->getNestedTree();
         }
     }

@@ -1,23 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
-
 use yii\helpers\Url;
-use app\models\Script;
-use app\widgets\TreeView;
-
-$this->registerJsFile('/libs/nice-tree/src/sekT0id-tree.js', [
-    'depends' => 'yii\web\JqueryAsset',
-    'position' => $this::POS_END,
-]);
-
-$this->registerJsFile('/js/extended-easy-tree.js', [
-    'depends' => 'yii\web\JqueryAsset',
-    'position' => $this::POS_END,
-]);
 
 $this->title = 'My Yii Application';
-
 ?>
 
 <div class="site-index">

@@ -12,6 +12,7 @@ use yii\helpers\Url;
  * @property integer $lft
  * @property integer $rgt
  * @property integer $lvl
+ * @property integer $link
  * @property string $name
  * @property string $data
   */
@@ -42,12 +43,13 @@ class Scripts extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'   => 'ID',
-            'lft'  => 'Left',
-            'rgt'  => 'Right',
-            'lvl'  => 'Level',
-            'name' => 'Name',
-            'data' => 'Data',
+            'id'    => 'ID',
+            'lft'   => 'Left',
+            'rgt'   => 'Right',
+            'lvl'   => 'Level',
+            'link'  => 'Link',
+            'name'  => 'Name',
+            'data'  => 'Data',
         ];
     }
 
@@ -85,70 +87,151 @@ class Scripts extends \yii\db\ActiveRecord
     */
     public function add($parentId = null)
     {
-        // Проверяем существование корня
-        // если нет, то создаем
-        if (!$this->getRoot()) {
-            $this->createRoot();
+        // Запускаем транзакцию, так как будем выполнять
+        // достаточно объемные работы
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+
+            // Проверяем существование корня
+            // если нет, то создаем
+            if (!$this->getRoot()) {
+                $this->createRoot();
+            }
+
+            // Если не указан родительский скрипт
+            // то добавляем новый элемент от корня
+            if($parentId != null){
+                //Начитываем параметры родительского элемента
+                $parentAttributes = self::find()
+                    ->where(['id' => $parentId])
+                    ->one();
+            } else {
+                $parentAttributes = $this->getRoot();
+            }
+
+            //выделяем место в дереве, для добавления нового элемента
+            self::updateAllCounters(
+                ['rgt' => 2],
+                ['>=', 'rgt', $parentAttributes->rgt]
+            );
+            self::updateAllCounters(
+                ['lft' => 2],
+                ['>=', 'lft', $parentAttributes->rgt]
+            );
+
+            //добавляем новый элемент
+            $this->lft = $parentAttributes->rgt;
+            $this->rgt = $parentAttributes->rgt+1;
+            $this->lvl = $parentAttributes->lvl+1;
+
+            $this->insert();
+
+            $transaction->commit();
+
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
         }
-
-		// Если не указан родительский скрипт
-        // то добавляем новый элемент от корня
-    	if($parentId != null){
-            //Начитываем параметры родительского элемента
-            $parentAttributes = self::find()
-                ->where(['id' => $parentId])
-                ->one();
-    	} else {
-            $parentAttributes = $this->getRoot();
-        }
-
-        //выделяем место в дереве, для добавления нового элемента
-        self::updateAllCounters(
-            ['rgt' => 2],
-            ['>=', 'rgt', $parentAttributes->rgt]
-        );
-        self::updateAllCounters(
-            ['lft' => 2],
-            ['>=', 'lft', $parentAttributes->rgt]
-        );
-
-        //добавляем новый элемент
-        $this->lft = $parentAttributes->rgt;
-        $this->rgt = $parentAttributes->rgt+1;
-        $this->lvl = $parentAttributes->lvl+1;
-
-        if ($this->insert()) {
-            return true;
-        }
-        return false;
+        return true;
     }
 
 	/**
-    * Удалить скрипт и все его дочерние элементы по id
+    * Обновляет скрипт по id
+    * Также обновляет все созданные на него ссылки
     *
     * @var int $scriptId
     * @return boolean
     */
-    public function delScript($scriptId = null)
+    public function upd()
     {
-        $this->del($scriptId);
+        // Запускаем транзакцию, так как будем выполнять
+        // достаточно объемные работы
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+
+            $this->save();
+            $this->updLinks();
+
+            $transaction->commit();
+
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+        return true;
     }
 
-    public function delLinks($scriptId = null)
+	/**
+    * Обновляет все ссылки на текущий скрипт
+    */
+    protected function updLinks()
     {
-        $childs = $this->getBranch($scriptId);
+        self::updateAll(['name' => $this->name], ['link' => $this->id]);
+    }
 
-        foreach ($childs as $child) {
+	/**
+    * Удалить скрипт и все его дочерние элементы по id
+    * Также удаляет все созданные на эти элементы ссылки
+    *
+    * @var int $scriptId
+    * @return boolean
+    */
+    public function del($scriptId = null)
+    {
+        // Запускаем транзакцию, так как будем выполнять
+        // достаточно объемные работы
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
 
-            $links = self::find()->andWhere(['link' => $child->id])->all();
+            $this->delLinks($scriptId);
+            $this->delScript($scriptId);
 
-            foreach ($links as $link) {
-                $this->del($link->id);
+            $transaction->commit();
+
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+        return true;
+    }
+
+	/**
+    * Удаляет все ссылки на созданные на скрипт
+    * и все его дочерние элементы
+    *
+    * Предназначена для функции delScript
+    *
+    * @var int $scriptId
+    * @return boolean
+    */
+    protected function delLinks($scriptId = null)
+    {
+        if ($scriptId !==null) {
+            $childs = $this->getBranch($scriptId);
+
+            foreach ($childs as $child) {
+
+                $links = self::find()->andWhere(['link' => $child->id])->all();
+
+                foreach ($links as $link) {
+                    $this->del($link->id);
+                }
+            return true;
             }
         }
+        return false;
     }
 
-    protected function del($scriptId = null)
+    /**
+     * Удаляет скрипт по Id и осуществляет
+     * смещение дерева.
+     *
+     * Предназначена для функции delScript
+     *
+     * @var int $scriptId
+     * @return boolean
+     */
+    protected function delScript($scriptId = null)
     {
         if ($scriptId !== null) {
 
@@ -160,11 +243,11 @@ class Scripts extends \yii\db\ActiveRecord
                 ['<=', 'rgt', $script->rgt],
             ]);
             self::updateAllCounters(
-                ['rgt' => -($this->getAbs($script))],
+                ['rgt' => -($this->getElementsOffset($script))],
                 ['>', 'rgt', $script->rgt]
             );
             self::updateAllCounters(
-                ['lft' =>  -($this->getAbs($script))],
+                ['lft' =>  -($this->getElementsOffset($script))],
                 ['>', 'lft', $script->rgt]
             );
             return true;
@@ -173,12 +256,12 @@ class Scripts extends \yii\db\ActiveRecord
     }
 
     /**
-     * Возвращает количество дочерних элементов
+     * Вычисляет смещение для манипуляций с деревом
      *
      * @var object $script
      * @return boolean / int
      */
-    public function getAbs($script = null)
+    public function getElementsOffset($script = null)
     {
         if ($script !== null && is_object($script)) {
             return $script->rgt - $script->lft + 1;
@@ -233,7 +316,7 @@ class Scripts extends \yii\db\ActiveRecord
     }
 
     /**
-     * Search script by id.
+     * Возвращает скрипт и все его дочерние элементы
      *
      * @var int / object $script
      * @return boolean / object

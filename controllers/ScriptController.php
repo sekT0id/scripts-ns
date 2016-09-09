@@ -10,6 +10,31 @@ use app\models\Scripts;
 class ScriptController extends BaseController
 {
 
+//    public function beforeAction($action)
+//    {
+//        // Неавторизованный пользователь перенаправляется
+//        // на страницу авторизации
+//        if (parent::beforeAction($action)) {
+//            Yii::$app->db->beginTransaction();
+//            return true;
+//        }
+//    }
+//
+//    public function afterAction($action, $result)
+//    {
+//        $result = parent::afterAction($action, $result);
+//
+//            Yii::$app->db->transaction->commit();
+//
+//            $exception = \Yii::$app->errorHandler->exception;
+//
+//            if ($exception !== null) {
+//                $transaction->rollBack();
+//            }
+//
+//        return $result;
+//    }
+
     public function goHome()
     {
         return $this->redirect(['/site/view', 'alias' => 'scripts']);
@@ -83,9 +108,7 @@ class ScriptController extends BaseController
         }
 
         $script = new Scripts;
-
-        $script->delLinks($scriptId);
-        $script->delScript($scriptId);
+        $script->del($scriptId);
 
         return $this->goHome();
         exit;
@@ -112,7 +135,8 @@ class ScriptController extends BaseController
         // Если передан id скрипта,
         // значит находимся в режиме редактирования
         if ($model->id) {
-            $script->save();
+            //$script->save();
+            $script->upd();
         // Иначе режим добавления
         } else {
             $script->add($model->parentId);

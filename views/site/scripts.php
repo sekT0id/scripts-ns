@@ -6,7 +6,6 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-use app\models\Script;
 use app\widgets\TreeView;
 
 $this->registerJsFile('/libs/nice-tree/src/sekT0id-tree.js', [
@@ -14,13 +13,12 @@ $this->registerJsFile('/libs/nice-tree/src/sekT0id-tree.js', [
     'position' => $this::POS_END,
 ]);
 
-$this->registerJsFile('/js/extended-easy-tree.js', [
+$this->registerJsFile('/js/extended-sekT0id-tree.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
 ]);
 
 $this->title = 'My Yii Application';
-
 ?>
 
 <div class="site-index">
@@ -39,9 +37,7 @@ $this->title = 'My Yii Application';
 
             <div class="col-md-6 col-md-offset-3">
                 <?php echo TreeView::widget([
-                    'treeType' => 'nestedTree',
-                    'itemTemplate' => '_nestedItem',
-                    'linkTemplate' => '_linkItem',
+                    'treeType' => 'nested',
                     'treeOptions' => [
                         'class' => 'easy-tree card card-block',
                     ],
@@ -90,9 +86,7 @@ $this->title = 'My Yii Application';
                     ->label(false);?>
 
                 <?php echo TreeView::widget([
-                    'treeType' => 'nestedTree',
-                    'itemTemplate' => '_modalsItem',
-                    'linkTemplate' => '_modalsLink',
+                    'treeType' => 'modal',
                     'treeOptions' => [
                         'class' => 'easy-tree card card-block',
                     ],
