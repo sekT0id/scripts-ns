@@ -17,7 +17,7 @@ echo Nav::widget([
     'options' => ['class' => 'nav navbar-nav navbar-right'],
     'items' => [
         ['label' => 'На главную', 'url' => ['/site/index']],
-        ['label' => 'Редактор',   'url' => ['/script/new']],
+        ['label' => 'К скриптам',    'url' => ['/site/view', 'alias' => 'scripts']],
         Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/site/login']]
         ) : (

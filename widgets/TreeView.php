@@ -23,12 +23,16 @@ class TreeView extends BaseWidget
 
     // Параметры тега элемента
     public $itemTag = 'li';
+    public $itemTemplate = '_simpleItem';
     public $itemOptions = [];
 
     // Тэг отступа для simpleList
     public $indentTag = 'span';
     public $indentContent = '';
     public $indentOptions = ['class' => 'indent'];
+
+    // Параметры для элемента "ссылка на скрипт"
+    public $linkTemplate = false;
 
     private $level = 0;
 
@@ -109,21 +113,28 @@ class TreeView extends BaseWidget
     public function getNestedTree()
     {
         //$list = $this->nodeOpenTag();
+        $list = '';
 
         foreach ($this->model as $item) {
-if ($item->lft != 0) {
-            if ($this->level > $item->lvl) {
-                $list .= $this->nodeCloseTag();
-                $list .= $this->itemCloseTag();
-            }
+            if ($item->lft != 0) {
+                if ($this->level > $item->lvl) {
+                    $list .= $this->nodeCloseTag();
+                    $list .= $this->itemCloseTag();
+                }
 
-            if ($this->level < $item->lvl) {
-                $list .= $this->nodeOpenTag();
-            }
+                if ($this->level < $item->lvl) {
+                    $list .= $this->nodeOpenTag();
+                }
 
-            $list .= $this->itemOpenTag();
-            $list .= $this->render('treeview/_nestedItem', ['item' => $item]);
-}
+                $list .= $this->itemOpenTag();
+
+                if ($item->link && $this->linkTemplate) {
+                    $list .= $this->render('treeview/'.$this->linkTemplate, ['item' => $item]);
+                } else {
+                    $list .= $this->render('treeview/'.$this->itemTemplate, ['item' => $item]);
+                }
+
+            }
             $this->level = $item->lvl;
         }
 

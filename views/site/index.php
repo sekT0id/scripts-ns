@@ -24,48 +24,20 @@ $this->title = 'My Yii Application';
     <div class="body-content">
         <div class="row">
 
-            <h1>Список скриптов</h1>
+            <h1>Начать работу</h1>
 
             <div class="col-md-6 col-md-offset-3">
                 <div class="card card-block">
-<!--                    <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-fixed btn-success">-->
-                    <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-default btn-block">
-                        Добавить
-                    </a>
+                    <?php if ($scripts) :?>
+                        <?php foreach ($scripts as $item) :?>
+
+                            <a href="<?php echo Url::toRoute(['/script/view', 'script' => $item->id]);?>" class="btn btn-default btn-block">
+                                <?php echo $item->name;?>
+                            </a>
+
+                        <?php endforeach;?>
+                    <?php endif;?>
                 </div>
-            </div>
-
-<!--
-            <div class="col-md-6 col-md-offset-3">
-
-                <?php echo TreeView::widget([
-                    'indentContent' => '<span class="glyphicon glyphicon-option-vertical"></span>',
-                    'nodeOptions' => [
-                        'class' => 'list-group',
-                    ],
-                    'itemOptions' => [
-                        'class' => 'list-group-item node-tree',
-                    ],
-                ]);?>
-
-            </div>
--->
-
-
-           <div class="col-md-6 col-md-offset-3">
-                <?php echo TreeView::widget([
-                    'treeType' => 'nestedTree',
-                    'treeOptions' => [
-                        'class' => 'easy-tree card card-block',
-                    ],
-                    'indentContent' => '<span class="glyphicon glyphicon-option-vertical"></span>',
-                    'itemOptions' => [
-                        'class' => 'item',
-                    ],
-                    'nodeOptions' => [
-                        'class' => 'node',
-                    ],
-                ]);?>
             </div>
 
         </div>

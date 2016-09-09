@@ -9,6 +9,12 @@ use app\models\Scripts;
 
 class ScriptController extends BaseController
 {
+
+    public function goHome()
+    {
+        return $this->redirect(['/site/view', 'alias' => 'scripts']);
+    }
+
     /**
      * Create new script action.
      *
@@ -62,13 +68,24 @@ class ScriptController extends BaseController
     /**
      * Delete script action
      */
-    public function actionDelete()
+    public function actionDelete($script = null)
     {
-        $model = new Form();
+        $scriptId = null;
+
+        if ($script === null) {
+            $model = new Form();
+            $model->load(Yii::$app->request->post());
+            $scriptId = $model->id;
+        }
+
+        if ($script !== null) {
+            $scriptId = $script;
+        }
+
         $script = new Scripts;
 
-        $model->load(Yii::$app->request->post());
-        $script->del($model->id);
+        $script->delLinks($scriptId);
+        $script->delScript($scriptId);
 
         return $this->goHome();
         exit;
@@ -100,6 +117,22 @@ class ScriptController extends BaseController
         } else {
             $script->add($model->parentId);
         }
+
+        return $this->goHome();
+        exit;
+    }
+
+    public function actionAddlink()
+    {
+        $model = new Form();
+        $script = new Scripts();
+
+        $model->load(Yii::$app->request->post());
+        $targetAttributes = Scripts::getScriptById($model->id);
+
+        $script->name = $targetAttributes->name;
+        $script->link = $model->id;
+        $script->add($model->parentId);
 
         return $this->goHome();
         exit;

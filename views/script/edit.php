@@ -115,7 +115,9 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                 <h4 class="modal-title" id="myModalLabel">Подтверждение удаления</h4>
             </div>
             <div class="modal-body">
-                <p>Удаление скрипта приведет к удалению всех дочерних(вложенных) скриптов.</p>
+                <p>Удаление скрипта приведет к удалению всех дочерних(вложенных) скриптов, а также ссылок на него.</p>
+            </div>
+            <div class="modal-footer">
 
                 <?php $form = ActiveForm::begin([
                     'action' => ['script/delete'],
@@ -125,17 +127,17 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                 ]);?>
 
                 <?php // id редактируемого скрипта.
-                    echo $form->field($model, 'id')
-                        ->hiddenInput(['value' => ($script) ? $script->id : false])
-                        ->label(false);?>
+                echo $form->field($model, 'id')
+                    ->hiddenInput(['value' => ($script) ? $script->id : false])
+                    ->label(false);?>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <?php echo Html::submitButton('Удалить', [
-                    'class' => 'btn btn-danger',
-                ]);?>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+
+                    <?php echo Html::submitButton('Удалить', [
+                        'class' => 'btn btn-danger',
+                    ]);?>
                 <?php ActiveForm::end();?>
+
             </div>
         </div>
     </div>

@@ -9,13 +9,21 @@ use app\models\Scripts;
 
 class SiteController extends BaseController
 {
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
+
+    public function mixinIndex($data)
     {
-        return $this->render('index');
+        $data['scripts'] = Scripts::find()
+        ->where(['lvl' => 1])
+        ->all();
+
+        return $data;
     }
+
+    public function mixinScripts($data)
+    {
+        $data['model'] = new Form;
+
+        return $data;
+    }
+
 }

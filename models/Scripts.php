@@ -129,7 +129,26 @@ class Scripts extends \yii\db\ActiveRecord
     * @var int $scriptId
     * @return boolean
     */
-    public function del($scriptId = null)
+    public function delScript($scriptId = null)
+    {
+        $this->del($scriptId);
+    }
+
+    public function delLinks($scriptId = null)
+    {
+        $childs = $this->getBranch($scriptId);
+
+        foreach ($childs as $child) {
+
+            $links = self::find()->andWhere(['link' => $child->id])->all();
+
+            foreach ($links as $link) {
+                $this->del($link->id);
+            }
+        }
+    }
+
+    protected function del($scriptId = null)
     {
         if ($scriptId !== null) {
 
@@ -203,6 +222,34 @@ class Scripts extends \yii\db\ActiveRecord
                     ->andWhere(['>', 'lft', $script->lft])
                     ->andWhere(['<', 'rgt', $script->rgt])
                     ->andWhere(['lvl' => $script->lvl + 1])
+                    ->orderBY([
+                        'lft' => SORT_ASC,
+                    ])
+                    ->all();
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /**
+     * Search script by id.
+     *
+     * @var int / object $script
+     * @return boolean / object
+     */
+    public static function getBranch($script = null)
+    {
+        if ($script !== null) {
+            if (is_int($script) || is_string($script)) {
+                $script = self::getScriptById($script);
+            }
+
+            if (is_object($script)) {
+
+                return self::find()
+                    ->andWhere(['>=', 'lft', $script->lft])
+                    ->andWhere(['<=', 'rgt', $script->rgt])
                     ->orderBY([
                         'lft' => SORT_ASC,
                     ])

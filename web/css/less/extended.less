@@ -1,6 +1,7 @@
 // out: ../extended.css
 
 @import (less) url(mixins.less);
+@import (less) url(colors.less);
 
 @bodyBgColor: #eee;
 
@@ -100,12 +101,6 @@ label {
     background-color: aquamarine;
 }
 
-/**
- * Dropdown
- */
-.dropdown-menu {
-    width: 230px;
-}
 
 /**
  * Sir Trevor blocks settings
@@ -164,10 +159,10 @@ input[type=text] {
 .card {
     background: @panelsBgColor;
     margin-bottom: @stdMarginBottom;
+    min-width: 180px;
 
     &-block {
         padding: @panelsPadding;
-        min-width: 180px;
     }
 
     p:last-child {
@@ -231,45 +226,65 @@ input[type=text] {
     li.item > span {
         float: left;
     }
-    .item-content {
-        padding: 10px 0 10px 25px;
+    .item {
+        &-content {
+            padding: 10px 15px 10px 25px;
+            margin-right: -17px;
+        }
+
+        &-link {
+            background: #EEEEEE;
+            border-bottom: 1px solid @panelsBgColor;
+        }
     }
 
     .glyphicon {
         line-height: 35px;
 
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        -o-transition: all .5s;
+        transition: all .5s;
+
         &-folder-open {
-            color: #00695c;
-            //color: #CC0000;
+            color: @element-color-dark;
         }
         &-folder-close {
-            color: #00695c;
-            //color: #ff4444;
+            color: @element-color-dark;
         }
         &-file {
-            color: #2BBBAD;
-            //color:  #FF8800;
+            color: @element-color;
         }
         &-file-open {
             color: #ffbb33;
         }
     }
 
-    li.parent_li > span:hover + div + ul li span.glyphicon-file,
+    li.parent_li > span:hover + div + ul li span.glyphicon-file {
+        color: @element-color-spin;
+    }
     li.parent_li > span:hover + div + ul li span.glyphicon-folder-open,
     li.parent_li > span:hover + div + ul li span.glyphicon-folder-close {
-        -webkit-transition: all 2.5s;
-        -moz-transition: all 2.5s;
-        -o-transition: all 2.5s;
-        transition: all 2.5s;
+        color: @element-color-dark-hover;
     }
-    li.parent_li > span:hover + div + ul li span.glyphicon-file {
-        color: #FF8800;
+}
+
+/**
+ * Dropdown
+ */
+.dropdown-menu {
+    width: 230px;
+
+    li {
+        padding: 0;
     }
-    li.parent_li > span:hover + div + ul li span.glyphicon-folder-open {
-        color: #CC0000;
+
+    li::before,
+    li::after {
+        border: 0;
     }
-    li.parent_li > span:hover + div + ul li span.glyphicon-folder-close {
-        color: #ff4444;
+
+    .glyphicon {
+        line-height: normal;
     }
 }

@@ -62,6 +62,38 @@ class BaseController extends Controller
         }
     }
 
+    public function actionIndex()
+    {
+        return $this->actionView('index');
+    }
+
+    public function actionView($alias)
+    {
+        // хранилище даннх передаваемое во вьюхи
+        $data = [];
+
+        // Определяем пользовательские миксины
+        $mixinName = 'mixin';
+
+        // Приводим имя миксина к удобоваримому виду
+        $words = preg_split('/-|_| /', $alias);
+
+        foreach ($words as $key => $word) {
+            $mixinName .= ucfirst($word);
+        }
+
+        // Исполняем пользовательские миксины
+        if ( $this->hasMethod($mixinName) ) {
+            $data = call_user_func([$this, $mixinName], $data);
+        }
+
+        // Отрисовываем вьюшку с найденым именем, либо стандартную, если alias не найден
+        if (file_exists($this->viewPath . DIRECTORY_SEPARATOR . $alias . '.php')) {
+            return $this->render($alias, $data);
+        }
+        return $this->render('default', $data);
+    }
+
     /**
      * Login action.
      *

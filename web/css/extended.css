@@ -69,12 +69,6 @@ label {
   background-color: aquamarine;
 }
 /**
- * Dropdown
- */
-.dropdown-menu {
-  width: 230px;
-}
-/**
  * Sir Trevor blocks settings
  */
 .st-top-controls {
@@ -117,10 +111,10 @@ input[type=text] {
 .card {
   background: #ffffff;
   margin-bottom: 15px;
+  min-width: 180px;
 }
 .card-block {
   padding: 1.25rem;
-  min-width: 180px;
 }
 .card p:last-child {
   margin-bottom: 0;
@@ -172,10 +166,19 @@ input[type=text] {
   float: left;
 }
 .easy-tree .item-content {
-  padding: 10px 0 10px 25px;
+  padding: 10px 15px 10px 25px;
+  margin-right: -17px;
+}
+.easy-tree .item-link {
+  background: #EEEEEE;
+  border-bottom: 1px solid #ffffff;
 }
 .easy-tree .glyphicon {
   line-height: 35px;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
 }
 .easy-tree .glyphicon-folder-open {
   color: #00695c;
@@ -184,25 +187,31 @@ input[type=text] {
   color: #00695c;
 }
 .easy-tree .glyphicon-file {
-  color: #2BBBAD;
+  color: #2bbbad;
 }
 .easy-tree .glyphicon-file-open {
   color: #ffbb33;
 }
-.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-file,
+.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-file {
+  color: #2b81bb;
+}
 .easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-open,
 .easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-close {
-  -webkit-transition: all 2.5s;
-  -moz-transition: all 2.5s;
-  -o-transition: all 2.5s;
-  transition: all 2.5s;
+  color: #00b59f;
 }
-.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-file {
-  color: #FF8800;
+/**
+ * Dropdown
+ */
+.dropdown-menu {
+  width: 230px;
 }
-.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-open {
-  color: #CC0000;
+.dropdown-menu li {
+  padding: 0;
 }
-.easy-tree li.parent_li > span:hover + div + ul li span.glyphicon-folder-close {
-  color: #ff4444;
+.dropdown-menu li::before,
+.dropdown-menu li::after {
+  border: 0;
+}
+.dropdown-menu .glyphicon {
+  line-height: normal;
 }

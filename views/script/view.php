@@ -42,7 +42,9 @@ $decodedText = json_decode($script->data);
 
                     <?php if (isset($scriptRecent) && $scriptRecent != []) :?>
                         <?php foreach ($scriptRecent as $recent) :?>
-                            <a class="btn btn-default btn-block" href="<?php echo Url::toRoute(['/script/view', 'script' => $recent->id]);?>">
+                            <a
+                                class="btn btn-default btn-block"
+                                href="<?php echo Url::toRoute(['/script/view', 'script' => ($recent->link) ? $recent->link : $recent->id]);?>">
                                 <?php echo $recent->name;?>
                             </a>
                         <?php endforeach;?>
