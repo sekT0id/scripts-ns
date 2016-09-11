@@ -41,7 +41,7 @@ class ScriptController extends BaseController
     }
 
     /**
-     * Create new script action.
+     * Display script editor for new script
      *
      * @return string
      */
@@ -59,7 +59,7 @@ class ScriptController extends BaseController
     }
 
     /**
-     * Displays script by id.
+     * Display script by id.
      *
      * @return string
      */
@@ -75,7 +75,7 @@ class ScriptController extends BaseController
     }
 
     /**
-     * Edit existed script. - готов
+     * Display script editor
      *
      * @return string
      */
@@ -115,7 +115,7 @@ class ScriptController extends BaseController
     }
 
     /**
-    * Save script action - готов
+    * Save script action
     */
     public function actionSave()
     {
@@ -135,7 +135,8 @@ class ScriptController extends BaseController
         // Если передан id скрипта,
         // значит находимся в режиме редактирования
         if ($model->id) {
-            //$script->save();
+            // Обновляем данные скрипта
+            // Также обновляем все ссылки на этот скрипт
             $script->upd();
         // Иначе режим добавления
         } else {
@@ -146,6 +147,9 @@ class ScriptController extends BaseController
         exit;
     }
 
+    /**
+     * Добавляем ссылку на скрипт
+     */
     public function actionAddlink()
     {
         $model = new Form();
