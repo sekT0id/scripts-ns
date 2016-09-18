@@ -9,8 +9,12 @@ class Form extends Model
 {
     public $id;
     public $parentId;
-    public $text;
+
     public $name;
+    public $phone;
+
+    public $text;
+    public $data;
 
     /**
      * @return array the validation rules.
@@ -21,10 +25,13 @@ class Form extends Model
         return [
             [[
                 'name',
+                'phone',
             ],
                 'required'],
             [[
                 'name',
+                'phone',
+                'data',
                 'parentId',
                 'text',
                 'id',
@@ -33,6 +40,16 @@ class Form extends Model
         ];
     }
 
+public function attributeLabels()
+    {
+        return [
+            'name'  => 'Наименование',
+            'phone' => 'Номер телефона',
+
+            'data'  => 'Дополнительная информация',
+            'text'  => 'Текст',
+        ];
+    }
     public function init()
     {
         parent::init();

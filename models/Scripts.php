@@ -196,10 +196,10 @@ class Scripts extends \yii\db\ActiveRecord
     }
 
 	/**
-    * Удаляет все ссылки на созданные на скрипт
-    * и все его дочерние элементы
+    * Удаляет все ссылки созданные на скрипт
+    * и его дочерние элементы.
     *
-    * Предназначена для функции delScript
+    * Предназначена для функции del
     *
     * @var int $scriptId
     * @return boolean
@@ -214,7 +214,7 @@ class Scripts extends \yii\db\ActiveRecord
                 $links = self::find()->andWhere(['link' => $child->id])->all();
 
                 foreach ($links as $link) {
-                    $this->del($link->id);
+                    $this->delScript($link->id);
                 }
             return true;
             }
@@ -270,7 +270,7 @@ class Scripts extends \yii\db\ActiveRecord
     }
 
     /**
-     * Search script by id.
+     * Ищет скрипт по id.
      *
      * @var int $scriptId
      * @return boolean / object
@@ -287,7 +287,7 @@ class Scripts extends \yii\db\ActiveRecord
     }
 
     /**
-     * Search script by id.
+     * Ищет дочерние элементы скрипта.
      *
      * @var int / object $script
      * @return boolean / object
@@ -316,7 +316,9 @@ class Scripts extends \yii\db\ActiveRecord
     }
 
     /**
-     * Возвращает скрипт и все его дочерние элементы
+     * Ищет ветку дерева
+     * (текущий скрипт и все его дочерние элементы)
+     * по родительскому скрипту.
      *
      * @var int / object $script
      * @return boolean / object
@@ -341,22 +343,5 @@ class Scripts extends \yii\db\ActiveRecord
             return false;
         }
         return false;
-    }
-
-    /**
-     * Возвращает родительский элемент
-     */
-    public function getParent($current = 0)
-    {
-        //$current = self::find()->where(['id' => $current]);
-        $current = self::find()->where(['id' => 1])->one();
-
-        return self::find()
-            ->where([
-                'and',
-                ['<', 'lft', $current->lft],
-                ['>', 'rgt', $current->rgt],
-            ])
-            ->one();
     }
 }

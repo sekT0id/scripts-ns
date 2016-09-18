@@ -6,13 +6,14 @@ use Yii;
 
 use app\models\Form;
 use app\models\Scripts;
+use app\models\Clients;
 
 class SiteController extends BaseController
 {
 
     public function mixinIndex($data)
     {
-        $data['scripts'] = Scripts::find()
+        $data['data'] = Scripts::find()
         ->where(['lvl' => 1])
         ->all();
 
@@ -22,6 +23,17 @@ class SiteController extends BaseController
     public function mixinScripts($data)
     {
         $data['model'] = new Form;
+
+        return $data;
+    }
+
+    public function mixinClients($data)
+    {
+        $searchModel = new Clients();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $data['searchModel'] = $searchModel;
+        $data['dataProvider'] = $dataProvider;
 
         return $data;
     }
