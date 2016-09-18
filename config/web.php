@@ -46,14 +46,20 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ''                    => '/site/index',
-                'new/<script:\d+>'    => '/script/new',
-                'new'                 => '/script/new',
-                'login'               => '/site/login',
-                'view/<script:\d+>'   => '/script/view',
-                'edit/<script:\d+>'   => '/script/edit',
-                'delete/<script:\d+>' => '/script/delete',
-                '<alias>'             => '/site/view',
+                ''                      => '/site/index',
+                'new/<script:\d+>'      => '/script/new',
+                'new'                   => '/script/new',
+                'login'                 => '/site/login',
+
+                'view/<script:\d+>'     => '/script/view',
+                'edit/<script:\d+>'     => '/script/edit',
+                'delete/<script:\d+>'   => '/script/delete',
+
+                'client/<clientId:\d+>' => '/client/edit',
+                'client/new'            => '/client/edit',
+                'client/delete'         => '/client/delete',
+
+                '<alias>'               => '/site/view',
             ],
         ],
 
@@ -61,7 +67,6 @@ $config = [
             'bundles' => [
                 'yii\web\JqueryAsset' => [
                     'js' => ['/libs/jquery/jquery.min.js'],
-                    //'js' => [],
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
