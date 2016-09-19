@@ -46,7 +46,7 @@ $this->title = 'My Yii Application';
                                 'label'=>'Родительская категория',
                                 'format'=>'text', // Возможные варианты: raw, html
                                 'content'=>function($data){
-                                    if ($data->hasSessions()) {
+                                    if ($data->sessions()) {
                                         return 'ok';
                                     }
                                     return 'nope';

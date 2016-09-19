@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
+
 use yii\helpers\Url;
+
 use yii\data\ActiveDataProvider;
 
 /**
@@ -31,7 +33,6 @@ class Clients extends BaseModel
         return [
             [['name', 'phone', 'data'], 'string'],
             [['name'], 'string', 'max' => 150],
-            [['userId'], 'required'],
         ];
     }
 
@@ -59,6 +60,7 @@ class Clients extends BaseModel
     public function search($params)
     {
         $query = self::find();
+        $query->andWhere(['userId' => $this->userId]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

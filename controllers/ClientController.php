@@ -41,7 +41,6 @@ class ClientController extends BaseController
             $client->isNewRecord = false;
         }
 
-        $client->userId = Yii::$app->user->id;
         $client->name   = $model->name;
         $client->phone  = $model->phone;
         $client->data   = $model->data;

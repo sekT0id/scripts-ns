@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+
 use yii\helpers\Url;
 
 /**
@@ -34,7 +35,6 @@ class Scripts extends BaseModel
         return [
             [['name', 'data'], 'string'],
             [['name'], 'string', 'max' => 150],
-            [['userId'], 'required'],
         ];
     }
 
