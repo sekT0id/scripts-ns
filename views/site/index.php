@@ -2,6 +2,9 @@
 
 /* @var $this yii\web\View */
 use yii\helpers\Url;
+use yii\helpers\Html;
+
+use yii\widgets\ActiveForm;
 
 $this->title = 'My Yii Application';
 ?>
@@ -17,9 +20,14 @@ $this->title = 'My Yii Application';
                     <?php if ($data) :?>
                         <?php foreach ($data as $script) :?>
 
-                            <a href="<?php echo Url::toRoute(['/script/view', 'script' => $script->id]);?>" class="btn btn-default btn-block">
-                                <?php echo $script->name;?>
-                            </a>
+                                <?php echo Html::tag('button', $script->name, [
+                                    'id'    => 'delete-button',
+                                    'type'  => 'button',
+                                    'class' => 'btn btn-default btn-block',
+                                    'data-toggle' => 'modal',
+                                    'data-target' => '#myModal',
+                                    'onClick' => "$('#form-id').val($script->id)",
+                                ]);?>
 
                         <?php endforeach;?>
                     <?php endif;?>
@@ -29,3 +37,48 @@ $this->title = 'My Yii Application';
         </div>
     </div>
 </div>
+
+<?php if ($data) :?>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Выберите клиента</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+
+                        <!-- CLIENTS HERE -->
+
+                    </p>
+                </div>
+                <div class="modal-footer">
+
+                    <?php $form = ActiveForm::begin([
+                        'action' => ['/script/view'],
+                        'enableClientValidation' => true,
+                        'enableAjaxValidation' => false,
+                        'options' => ['enctype' => 'multipart/form-data']
+                    ]);?>
+
+                    <?php // id редактируемого скрипта.
+                    echo $form->field($model, 'id')
+                        ->hiddenInput(['value' => null])
+                        ->label(false);?>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+
+                        <?php echo Html::submitButton('Начать', [
+                            'class' => 'btn btn-success',
+                        ]);?>
+                    <?php ActiveForm::end();?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

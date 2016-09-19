@@ -5,7 +5,7 @@ namespace app\controllers;
 use Yii;
 
 use app\models\Form;
-use app\models\clients;
+use app\models\Clients;
 
 class ClientController extends BaseController
 {
@@ -41,6 +41,7 @@ class ClientController extends BaseController
             $client->isNewRecord = false;
         }
 
+        $client->userId = Yii::$app->user->id;
         $client->name   = $model->name;
         $client->phone  = $model->phone;
         $client->data   = $model->data;
@@ -65,5 +66,4 @@ class ClientController extends BaseController
         return $this->goHome();
         exit;
     }
-
 }

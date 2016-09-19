@@ -92,41 +92,43 @@ use yii\widgets\MaskedInput
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">Подтверждение удаления</h4>
-            </div>
-            <div class="modal-body">
-                <p>Подтвердите необратимое действие - Удаление клиента <b>"<?php echo $data->name;?>"</b></p>
-            </div>
-            <div class="modal-footer">
+<?php if ($data) :?>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Подтверждение удаления</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Подтвердите необратимое действие - Удаление клиента <b>"<?php echo $data->name;?>"</b></p>
+                </div>
+                <div class="modal-footer">
 
-                <?php $form = ActiveForm::begin([
-                    'action' => ['client/delete'],
-                    'enableClientValidation' => true,
-                    'enableAjaxValidation' => false,
-                    'options' => ['enctype' => 'multipart/form-data']
-                ]);?>
-
-                <?php // id редактируемого скрипта.
-                echo $form->field($model, 'id')
-                    ->hiddenInput(['value' => ($data) ? $data->id : false])
-                    ->label(false);?>
-
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-
-                    <?php echo Html::submitButton('Удалить', [
-                        'class' => 'btn btn-danger',
+                    <?php $form = ActiveForm::begin([
+                        'action' => ['client/delete'],
+                        'enableClientValidation' => true,
+                        'enableAjaxValidation' => false,
+                        'options' => ['enctype' => 'multipart/form-data']
                     ]);?>
-                <?php ActiveForm::end();?>
 
+                    <?php // id редактируемого скрипта.
+                    echo $form->field($model, 'id')
+                        ->hiddenInput(['value' => $data->id])
+                        ->label(false);?>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+
+                        <?php echo Html::submitButton('Удалить', [
+                            'class' => 'btn btn-danger',
+                        ]);?>
+                    <?php ActiveForm::end();?>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+<?php endif;?>

@@ -6,29 +6,27 @@ use Yii;
 use yii\helpers\Url;
 
 /**
- * This is the model class for table "script".
- *
- * @property integer $id
- * @property integer $lft
- * @property integer $rgt
- * @property integer $lvl
- * @property integer $link
- * @property string $name
- * @property string $data
-  */
+ * This is the BaseModel class.
+ */
 class BaseModel extends \yii\db\ActiveRecord
 {
+    public static $userId = true;
+
+    public static function find()
+    {
+        if (self::$userId) {
+            return parent::find()->andWhere(['userId' => Yii::$app->user->id]);
+        }
+        return parent::find();
+    }
     /**
      * Ищет запись по id.
      *
      * @var int $scriptId
-     * @return boolean / object
+     * @return object / boolean
      */
-    public static function getById($id = null)
+    public static function getById($searchedId = null)
     {
-        if ($id !== null) {
-            return self::find()->andWhere(['id' => $id])->one();
-        }
-        return false;
+        return self::find()->where(['id' => $searchedId])->one();
     }
 }

@@ -41,6 +41,18 @@ $this->title = 'My Yii Application';
                                     );
                                 }
                             ],
+                            [
+                                'attribute'=>'parent_id',
+                                'label'=>'Родительская категория',
+                                'format'=>'text', // Возможные варианты: raw, html
+                                'content'=>function($data){
+                                    if ($data->hasSessions()) {
+                                        return 'ok';
+                                    }
+                                    return 'nope';
+                                },
+                                //'filter' => Category::getParentsList()
+                            ],
                             //'name:ntext',
                             'phone:ntext',
                             'data:ntext',

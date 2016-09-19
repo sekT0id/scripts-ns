@@ -16,7 +16,7 @@ use yii\helpers\Url;
  * @property string $name
  * @property string $data
   */
-class Scripts extends \yii\db\ActiveRecord
+class Scripts extends BaseModel
 {
     /**
      * @inheritdoc
@@ -34,6 +34,7 @@ class Scripts extends \yii\db\ActiveRecord
         return [
             [['name', 'data'], 'string'],
             [['name'], 'string', 'max' => 150],
+            [['userId'], 'required'],
         ];
     }
 

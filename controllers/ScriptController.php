@@ -63,9 +63,14 @@ class ScriptController extends BaseController
      *
      * @return string
      */
-    public function actionView($script)
+    public function actionView($script = null)
     {
-        $script = Scripts::getScriptById($script);
+        if ($script === null) {
+            $model = new Form;
+            $model->load(Yii::$app->request->post());
+            $script = $model->id;
+        }
+        $script = Scripts::getById($script);
         $scriptRecent = Scripts::getScriptChildren($script);
 
         return $this->render('view', [
@@ -86,7 +91,7 @@ class ScriptController extends BaseController
         return $this->render('edit', [
             'model' => $model,
             'parentId' => false,
-            'script' => Scripts::getScriptById($script),
+            'script' => Scripts::getById($script),
         ]);
     }
 
@@ -129,6 +134,7 @@ class ScriptController extends BaseController
             $script->isNewRecord = false;
         }
 
+        $script->userId = Yii::$app->user->id;
         $script->name   = $model->name;
         $script->data   = $model->text;
 
@@ -156,8 +162,9 @@ class ScriptController extends BaseController
         $script = new Scripts();
 
         $model->load(Yii::$app->request->post());
-        $targetAttributes = Scripts::getScriptById($model->id);
+        $targetAttributes = Scripts::getById($model->id);
 
+        $script->userId = Yii::$app->user->id;
         $script->name = $targetAttributes->name;
         $script->link = $model->id;
         $script->add($model->parentId);

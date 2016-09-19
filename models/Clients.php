@@ -31,6 +31,7 @@ class Clients extends BaseModel
         return [
             [['name', 'phone', 'data'], 'string'],
             [['name'], 'string', 'max' => 150],
+            [['userId'], 'required'],
         ];
     }
 
@@ -40,10 +41,11 @@ class Clients extends BaseModel
     public function attributeLabels()
     {
         return [
-            'id'    => 'ID',
-            'name'  => 'Наименование',
-            'phone' => 'Телефон',
-            'data'  => 'Дополнительная информация',
+            'id'      => 'ID',
+            'userId'  => 'userID',
+            'name'    => 'Наименование',
+            'phone'   => 'Телефон',
+            'data'    => 'Дополнительная информация',
         ];
     }
 
@@ -81,5 +83,12 @@ class Clients extends BaseModel
             ->andFilterWhere(['like', 'data', $this->data]);
 
         return $dataProvider;
+    }
+
+    public function sessions(){
+        if ($this->hasMany(Sessions::className(), ['cliendId' => $this->id])) {
+            return true;
+        }
+        return false;
     }
 }
