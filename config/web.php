@@ -55,10 +55,13 @@ $config = [
                 'edit/<script:\d+>'     => '/script/edit',
                 'delete/<script:\d+>'   => '/script/delete',
 
+
                 'client/<clientId:\d+>' => '/client/edit',
                 'client/new'            => '/client/edit',
                 'client/delete'         => '/client/delete',
 
+                '<alias>/<page:\d+>'    => '/site/view',
+                '<page:\d+>'            => '/site/index',
                 '<alias>'               => '/site/view',
             ],
         ],

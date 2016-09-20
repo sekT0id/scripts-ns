@@ -29,7 +29,8 @@ class Sessions extends BaseModel
     public function rules()
     {
         return [
-            [['userId', 'clientId', 'timestart'], 'string'],
+            [['userId', 'clientId'], 'integer'],
+            [['timeStart'], 'string'],
         ];
     }
 
@@ -42,12 +43,21 @@ class Sessions extends BaseModel
             'id'        => 'ID',
             'userId'    => 'Идентификатор пользователясистемы',
             'clientId'  => 'Идентификатор клиента',
-            'timestart' => 'Дата и время начала сессии',
+            'timeStart' => 'Дата и время начала сессии',
         ];
     }
     public function start()
     {
-
-        return
+        // Запускаем транзакцию, так как будем выполнять
+        // достаточно объемные работы
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $this->insert();
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+        return $this->id;
     }
 }

@@ -16,7 +16,7 @@ echo GridView::widget([
             'onclick' =>"
                 $('tr').removeClass('btn-default');
                 $(this).toggleClass('btn-default');
-                $('#clientId').val(".$model['id'].");"
+                $('#form-clientid').val(".$model['id'].");"
             ];
     },
     'columns' => [

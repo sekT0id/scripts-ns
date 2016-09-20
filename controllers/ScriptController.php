@@ -7,6 +7,7 @@ use Yii;
 use app\models\Form;
 use app\models\Scripts;
 use app\models\Sessions;
+use app\models\SessionsDetails;
 
 class ScriptController extends BaseController
 {
@@ -66,28 +67,45 @@ class ScriptController extends BaseController
      */
     public function actionView($script = null)
     {
+        // php сессия живет только в рамках сессии звонка.
+        // При выходе из сесии звонка, php сессия разрушается.
+        $session = Yii::$app->session;
+        $session->open();
+
+        // Если не получили id скрипта из $_GET
         if ($script === null) {
+
+            // То пробуем смотреть его в $_POST
             $model = new Form;
             $model->load(Yii::$app->request->post());
 
-
-
-
+            // Если id скрипта передано из формы,
+            // значит стартуем новую сессию звонка
             if (isset($model->clientId)) {
-                $modelSession = new Session;
-                $modelSession->clientId = $model->clientId;
+                $modelSession = new Sessions;
+                $modelSession->clientId  = $model->clientId;
 
-                $session = Yii::$app->session;
-                $session->destroy();
-                $session->close();
-                $session->open();
-
+                // Записываем в php сессию идентификатор
+                // текущего клиента.
                 $session['clientId']  = $model->clientId;
+
+                // Записываем в php сессию идентификатор
+                // текущей сессии звонка.
+                // $modelSession->start() создает новую запись
+                // и возвращает её идентификатор в случае успеха.
                 $session['sessionId'] = $modelSession->start();
             }
-
-
             $script = $model->id;
+        }
+
+        // Если php сессия существует,
+        // значит находимся в рамках сесси звонка
+        // и значит записываем детали переходов
+        if (isset($session['sessionId'])) {
+            $modelSessionDetails = new SessionsDetails;
+            $modelSessionDetails->sessionId = $session['sessionId'];
+            $modelSessionDetails->scriptId = $script;
+            $modelSessionDetails->insert();
         }
 
         $script = Scripts::getById($script);

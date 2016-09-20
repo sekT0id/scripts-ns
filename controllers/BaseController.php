@@ -58,6 +58,10 @@ class BaseController extends Controller
             if ($action->id != 'login' && Yii::$app->user->isGuest) {
                 return $this->redirect(['site/login']);
             }
+
+            if ($action->controller->id != 'script' and $action->id != 'view') {
+                $this->destroySession();
+            }
             return true;
         }
     }
@@ -126,5 +130,18 @@ class BaseController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function destroySession()
+    {
+        $session = Yii::$app->session;
+
+        // проверяем наличие открытой сессии
+        if ($session->isActive) {
+            // очищаем данные сессии
+            $session->destroy();
+            // закрываем сессию
+            $session->close();
+        }
     }
 }

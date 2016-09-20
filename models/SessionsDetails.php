@@ -3,11 +3,62 @@
 namespace app\models;
 
 use Yii;
+
 use yii\helpers\Url;
 
 /**
- * This is the BaseModel class.
+ * This is the model class for table "SessionsDetails".
+ *
+ * @property integer $id
+ * @property integer $sessionId
+ * @property integer $scriptId
+ * @property string $timeStart
  */
-class SessionsDetails extends \yii\db\ActiveRecord
+class SessionsDetails extends BaseModel
 {
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'sessionsDetails';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['sessionId', 'scriptId'], 'integer'],
+            [['timeStart'], 'string'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id'        => 'ID',
+            'sessionId' => 'Идентификатор текущей сессии (звонка)',
+            'scriptId'  => 'Идентификатор выбранного перехода',
+            'timeStart' => 'Дата и время произведения перехода',
+        ];
+    }
+    public function start()
+    {
+        // Запускаем транзакцию, так как будем выполнять
+        // достаточно объемные работы
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $this->insert();
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+        return $this->id;
+    }
 }

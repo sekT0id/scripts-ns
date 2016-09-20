@@ -30,7 +30,12 @@ class BaseModel extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
-            $this->userId = self::getUserId();
+            if ($this->hasAttribute('userId')) {
+                $this->userId = self::getUserId();
+            }
+            if ($this->hasAttribute('timeStart')) {
+                $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
+            }
             return true;
         } else {
             return false;

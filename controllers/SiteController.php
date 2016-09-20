@@ -13,12 +13,6 @@ class SiteController extends BaseController
 
     public function mixinIndex($data)
     {
-        $searchModel = new Clients;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $data['searchModel'] = $searchModel;
-        $data['dataProvider'] = $dataProvider;
-
         $data['model'] = new Form;
         $data['data'] = Scripts::find()
         ->andWhere(['lvl' => 1])
@@ -38,6 +32,7 @@ class SiteController extends BaseController
     {
         $searchModel = new Clients;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->defaultPageSize = 10;
 
         $data['searchModel'] = $searchModel;
         $data['dataProvider'] = $dataProvider;

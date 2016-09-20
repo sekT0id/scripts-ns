@@ -13,6 +13,7 @@ class Grid extends BaseWidget
 
         $searchModel = new Clients;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->defaultPageSize = 10;
 
         $this->data['searchModel'] = $searchModel;
         $this->data['dataProvider'] = $dataProvider;
