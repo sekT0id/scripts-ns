@@ -100,12 +100,14 @@ $this->title = 'My Yii Application';
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Отмена</button>
+
                 <?php echo Html::submitButton('Готово', [
                     'id' => 'link-submit',
-                    'class' => 'btn btn-success',
+                    'class' => 'btn btn-default',
                     'disabled' => true,
                 ]);?>
+
                 <?php ActiveForm::end();?>
             </div>
         </div>

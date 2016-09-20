@@ -15,6 +15,7 @@ use yii\data\ActiveDataProvider;
  * @property string $name
  * @property string $data
  */
+
 class Clients extends BaseModel
 {
     /**
@@ -60,7 +61,6 @@ class Clients extends BaseModel
     public function search($params)
     {
         $query = self::find();
-        $query->andWhere(['userId' => $this->userId]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -87,10 +87,8 @@ class Clients extends BaseModel
         return $dataProvider;
     }
 
-    public function sessions(){
-        if ($this->hasMany(Sessions::className(), ['cliendId' => $this->id])) {
-            return true;
-        }
-        return false;
+    public function sessions()
+    {
+        return $this->hasMany(Sessions::className(), ['cliendId' => $this->id]);
     }
 }

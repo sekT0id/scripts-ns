@@ -2,6 +2,7 @@
 namespace app\models;
 
 use yii\base\Model;
+
 /**
  * app\models
  */
@@ -9,6 +10,7 @@ class Form extends Model
 {
     public $id;
     public $parentId;
+    public $clientId;
 
     public $name;
     public $phone;
@@ -33,6 +35,7 @@ class Form extends Model
                 'phone',
                 'data',
                 'parentId',
+                'clientId',
                 'text',
                 'id',
             ],
@@ -40,7 +43,7 @@ class Form extends Model
         ];
     }
 
-public function attributeLabels()
+    public function attributeLabels()
     {
         return [
             'name'  => 'Наименование',

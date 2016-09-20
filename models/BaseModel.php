@@ -6,29 +6,11 @@ use Yii;
 
 use yii\helpers\Url;
 
-use yii\behaviors\BlameableBehavior;
-use app\behaviors\setUserId;
-
 /**
  * This is the BaseModel class.
  */
 class BaseModel extends \yii\db\ActiveRecord
 {
-    public $userId;
-    private static $uId = false;
-
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => setUserId::className(),
-                'createdByAttribute' => 'userId',
-                'updatedByAttribute' => false,
-            ],
-
-        ];
-    }
-
     /**
      * Ищет запись по id.
      *
@@ -40,13 +22,24 @@ class BaseModel extends \yii\db\ActiveRecord
         return self::find()->where(['id' => $searchedId])->one();
     }
 
-    public function init()
-    {
-        self::$uId = $this->userId;
-    }
-
     public static function find()
     {
-        return parent::find()->andWhere(['userId' => Yii::$app->user->id]);
+        return parent::find()->andWhere(['userId' => self::getUserId()]);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->userId = self::getUserId();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function getUserId()
+    {
+        $user = Yii::$app->get('user', false);
+        return $user && !$user->isGuest ? $user->id : null;
     }
 }

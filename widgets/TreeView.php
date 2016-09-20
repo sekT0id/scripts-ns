@@ -104,7 +104,8 @@ class TreeView extends BaseWidget
      *
      * @return Exception / boolean / string
      */
-    public function renderItem($viewName = null, $options = []) {
+    public function renderItem($viewName = null, $options = [])
+    {
         $path = Yii::$app->basePath . '/widgets/views/treeview/' . $this->treeType . '/' . $viewName . '.php';
 
         if ($viewName !== null) {

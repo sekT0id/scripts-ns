@@ -5,6 +5,9 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 use yii\widgets\ActiveForm;
+use app\widgets\Grid;
+
+//use yii\grid\GridView;
 
 $this->title = 'My Yii Application';
 ?>
@@ -41,7 +44,7 @@ $this->title = 'My Yii Application';
 <?php if ($data) :?>
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -50,11 +53,11 @@ $this->title = 'My Yii Application';
                     <h4 class="modal-title" id="myModalLabel">Выберите клиента</h4>
                 </div>
                 <div class="modal-body">
-                    <p>
 
-                        <!-- CLIENTS HERE -->
+                    <?php \yii\widgets\Pjax::begin();?>
+                        <?php echo grid::widget();?>
+                    <?php \yii\widgets\Pjax::end();?>
 
-                    </p>
                 </div>
                 <div class="modal-footer">
 
@@ -70,10 +73,14 @@ $this->title = 'My Yii Application';
                         ->hiddenInput(['value' => null])
                         ->label(false);?>
 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <?php echo $form->field($model, 'clientId')
+                        ->hiddenInput(['value' => null])
+                        ->label(false);?>
+
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Отмена</button>
 
                         <?php echo Html::submitButton('Начать', [
-                            'class' => 'btn btn-success',
+                            'class' => 'btn btn-default',
                         ]);?>
                     <?php ActiveForm::end();?>
 

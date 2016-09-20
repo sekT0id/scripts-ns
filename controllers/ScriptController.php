@@ -70,6 +70,7 @@ class ScriptController extends BaseController
             $model->load(Yii::$app->request->post());
             $script = $model->id;
         }
+
         $script = Scripts::getById($script);
         $scriptRecent = Scripts::getScriptChildren($script);
 
