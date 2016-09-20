@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\Form;
 use app\models\Scripts;
+use app\models\Sessions;
 
 class ScriptController extends BaseController
 {
@@ -68,6 +69,24 @@ class ScriptController extends BaseController
         if ($script === null) {
             $model = new Form;
             $model->load(Yii::$app->request->post());
+
+
+
+
+            if (isset($model->clientId)) {
+                $modelSession = new Session;
+                $modelSession->clientId = $model->clientId;
+
+                $session = Yii::$app->session;
+                $session->destroy();
+                $session->close();
+                $session->open();
+
+                $session['clientId']  = $model->clientId;
+                $session['sessionId'] = $modelSession->start();
+            }
+
+
             $script = $model->id;
         }
 
