@@ -3,11 +3,12 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 use yii\web\Controller;
 
+use app\models\Users;
 use app\models\LoginForm;
 
 class BaseController extends Controller
@@ -53,10 +54,10 @@ class BaseController extends Controller
     public function beforeAction($action)
     {
         // Неавторизованный пользователь перенаправляется
-        // на страницу авторизации
+        // на экшн авторизации
         if (parent::beforeAction($action)) {
             if ($action->id != 'login' && Yii::$app->user->isGuest) {
-                return $this->redirect(['site/login']);
+                return $this->redirect(['/site/login']);
             }
 
             if ($action->controller->id != 'script' and $action->id != 'view') {
@@ -105,19 +106,27 @@ class BaseController extends Controller
      */
     public function actionLogin()
     {
-        $this->layout = 'login';
+        $users = new Users;
 
+        // Получаем ip адрес пользователя
+        $users->userIp = Yii::$app->request->userIP;
+
+        // Ищем пользователя с таким ip в базе
+        // и если не находим, то добавляем нового.
+        if (!$users->getUser()) {
+            $users->authKey = Yii::$app->security->generateRandomString();
+            $users->accessToken = Yii::$app->security->generateRandomString();
+            $users->insert();
+        }
+
+        // Логинимся текущим пользователем.
+        Yii::$app->user->login($users->getUser(), 3600*24*30);
+
+        // Перекидываем на главную страницу
         if (!Yii::$app->user->isGuest) {
+            //return $this->redirect(['/site/index']);
             return $this->goHome();
         }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
     }
 
     /**

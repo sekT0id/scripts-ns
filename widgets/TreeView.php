@@ -229,6 +229,10 @@ class TreeView extends BaseWidget
                 ->all();
         }
 
+        if (!$this->model) {
+            $this->show = 'empty';
+        }
+
         // Разбираем опции для тега дерева
         $this->data['treeOptions'] = $this->getTreeOptions();
 

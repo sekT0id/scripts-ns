@@ -33,6 +33,7 @@ use yii\widgets\MaskedInput
                         <?php echo $form->field($model, 'name')
                             ->input('text', [
                                 'value' => ($data) ? $data->name : false,
+                                'autofocus' => 'autofocus',
                             ])
                             ->label($model->getAttributeLabel('name') . ' *');?>
 

@@ -46,6 +46,7 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                         <?php echo $form->field($model, 'name')
                             ->input('text', [
                                 'value' => ($script) ? $script->name : false,
+                                'autofocus' => 'autofocus',
                             ])
                             ->label('Имя скрипта *') ?>
 

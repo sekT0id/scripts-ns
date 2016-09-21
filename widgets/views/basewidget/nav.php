@@ -19,18 +19,18 @@ echo Nav::widget([
         ['label' => 'На главную', 'url' => ['/site/index']],
         ['label' => 'К скриптам',    'url' => ['/site/view', 'alias' => 'scripts']],
         ['label' => 'К клиентам',    'url' => ['/site/view', 'alias' => 'clients']],
-        Yii::$app->user->isGuest ? (
-            ['label' => 'Login', 'url' => ['/site/login']]
-        ) : (
-            '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>'
-        )
+//        Yii::$app->user->isGuest ? (
+//            ['label' => 'Login', 'url' => ['/site/login']]
+//        ) : (
+//            '<li>'
+//            . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
+//            . Html::submitButton(
+//                'Logout (' . Yii::$app->user->identity->username . ')',
+//                ['class' => 'btn btn-link']
+//            )
+//            . Html::endForm()
+//            . '</li>'
+//        )
     ],
 ]);
 NavBar::end();

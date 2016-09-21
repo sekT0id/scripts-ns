@@ -33,6 +33,11 @@ $this->title = 'My Yii Application';
                                 ]);?>
 
                         <?php endforeach;?>
+                    <?php else :?>
+                        <p>У вас ещё нет ни одного скрипта</p>
+                        <a class="btn  btn-default btn-block" href="<?php echo Url::toRoute(['script/new'])?>">
+                            Добавить
+                        </a>
                     <?php endif;?>
                 </div>
             </div>
