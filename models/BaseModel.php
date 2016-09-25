@@ -36,6 +36,9 @@ class BaseModel extends \yii\db\ActiveRecord
             if ($this->hasAttribute('timeStart')) {
                 $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
             }
+            if ($this->hasAttribute('hasSession')) {
+                $this->hasSession = true;
+            }
             return true;
         } else {
             return false;

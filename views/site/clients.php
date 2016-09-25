@@ -31,27 +31,33 @@ $this->title = 'My Yii Application';
                         'columns' => [
                             //['class' => 'yii\grid\SerialColumn'],
                             [
-                                'attribute'=>'name',
-                                'label' => 'Наименование',
-                                'format' => 'raw',
-                                'value' => function($data){
-                                    return Html::a(
-                                        $data->name,
-                                        Url::toRoute(['/client/edit', 'clientId' => $data->id])
-                                    );
-                                }
+                                'attribute' => 'hasSession',
+                                'label' => '123',
+                                'format' => 'text', // Возможные варианты: raw, html
+
+                                'content' => //function($data) {
+                                    function ($model, $index, $widget) {
+                                        return Html::checkbox('foo[]', $model->hasSession, ['value' => $index, 'disabled' => true]);
+                                    }
+//                                    if ($data->hasSession) {
+//                                        return $data->hasSession;
+//                                        return '+++';
+//                                    }
+//                                    return '---';
+//                                },
+
+//                                'filter' => [
+//                                    'true' => 'yes',
+//                                    'false' => 'no',
+//                                ],
                             ],
                             [
-                                'attribute'=>'parent_id',
-                                'label'=>'Родительская категория',
-                                'format'=>'text', // Возможные варианты: raw, html
-                                'content'=>function($data){
-                                    if ($data->sessions()) {
-                                        return 'ok';
-                                    }
-                                    return 'nope';
-                                },
-                                //'filter' => Category::getParentsList()
+                                'attribute' => 'name',
+                                'label' => 'Наименование',
+                                'format' => 'raw',
+                                'value' => function($data) {
+                                    return $data->name;
+                                }
                             ],
                             //'name:ntext',
                             'phone:ntext',

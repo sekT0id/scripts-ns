@@ -22,29 +22,26 @@ echo GridView::widget([
     'columns' => [
         //['class' => 'yii\grid\SerialColumn'],
         [
-            'attribute'=>'name',
-            'label' => 'Наименование',
-            'format' => 'raw',
-            'value' => function ($data) {
-                return Html::a(
-                    $data->name,
-                    Url::toRoute(['/client/edit', 'clientId' => $data->id])
-                );
-            }
-        ],
-        [
             'attribute' => 'parent_id',
-            'label'     => 'Родительская категория',
+            'label'     => '',
             'format'    => 'text', // Возможные варианты: raw, html
             'content'   => function ($data) {
-                if ($data->sessions()) {
-                    foreach ($data->sessions() as $session) {
-                        return $session;
-                    }
-                }
-                return 'nope';
+//                if ($data->lastSessions) {
+//                    return Yii::$app->formatter->asDate(
+//                        $data->lastSessions->timeStart
+//                    );
+//                }
+                return '';
             },
             //'filter' => Category::getParentsList()
+        ],
+        [
+            'attribute' => 'name',
+            'label'     => 'Наименование',
+            'format'    => 'raw',
+            'value'     => function ($data) {
+                return $data->name;
+            }
         ],
         //'name:ntext',
         'phone:ntext',

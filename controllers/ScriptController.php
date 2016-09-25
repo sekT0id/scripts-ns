@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\Form;
 use app\models\Scripts;
+use app\models\Clients;
 use app\models\Sessions;
 use app\models\SessionsDetails;
 
@@ -82,6 +83,9 @@ class ScriptController extends BaseController
             // Если id скрипта передано из формы,
             // значит стартуем новую сессию звонка
             if (isset($model->clientId)) {
+
+                $client = new Clients;
+
                 $modelSession = new Sessions;
                 $modelSession->clientId  = $model->clientId;
 
@@ -94,6 +98,8 @@ class ScriptController extends BaseController
                 // $modelSession->start() создает новую запись
                 // и возвращает её идентификатор в случае успеха.
                 $session['sessionId'] = $modelSession->start();
+
+                $client->update();
             }
             $script = $model->id;
         }
