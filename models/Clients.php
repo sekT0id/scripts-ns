@@ -12,8 +12,11 @@ use yii\data\ActiveDataProvider;
  * This is the model class for table "clients".
  *
  * @property integer $id
+ * @property integer $userId
  * @property string $name
+ * @property string $phone
  * @property string $data
+ * @property boolean $hasSession
  */
 
 class Clients extends BaseModel
@@ -90,6 +93,11 @@ class Clients extends BaseModel
         return $dataProvider;
     }
 
+    /**
+     * Relation function
+     *
+     * @return ActiveRecord object
+     */
     public function getSessions()
     {
         return $this->hasMany(Sessions::className(), ['clientId' => 'id']);

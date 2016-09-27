@@ -53,8 +53,4 @@ class Form extends Model
             'text'  => 'Текст',
         ];
     }
-    public function init()
-    {
-        parent::init();
-    }
 }

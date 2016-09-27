@@ -47,18 +47,4 @@ class SessionsDetails extends BaseModel
             'timeStart' => 'Дата и время произведения перехода',
         ];
     }
-    public function start()
-    {
-        // Запускаем транзакцию, так как будем выполнять
-        // достаточно объемные работы
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            $this->insert();
-            $transaction->commit();
-        } catch (\Exception $e) {
-            $transaction->rollBack();
-            throw $e;
-        }
-        return $this->id;
-    }
 }

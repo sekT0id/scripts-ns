@@ -10,6 +10,7 @@ use yii\helpers\Url;
  * This is the model class for table "script".
  *
  * @property integer $id
+ * @property integer $userId
  * @property integer $lft
  * @property integer $rgt
  * @property integer $lvl
@@ -80,7 +81,7 @@ class Scripts extends BaseModel
         return self::find()->where(['lft' => 0])->one();
     }
 
-	/**
+    /**
     * Добавляет дочерний элемент по id родителя
     *
     * @var int $parentId
@@ -101,7 +102,7 @@ class Scripts extends BaseModel
 
             // Если не указан родительский скрипт
             // то добавляем новый элемент от корня
-            if($parentId != null){
+            if ($parentId != null) {
                 //Начитываем параметры родительского элемента
                 $parentAttributes = self::find()
                     ->where(['id' => $parentId])
@@ -136,7 +137,7 @@ class Scripts extends BaseModel
         return true;
     }
 
-	/**
+    /**
     * Обновляет скрипт по id
     * Также обновляет все созданные на него ссылки
     *
@@ -162,7 +163,7 @@ class Scripts extends BaseModel
         return true;
     }
 
-	/**
+    /**
     * Обновляет все ссылки на текущий скрипт
     */
     protected function updLinks()
@@ -170,7 +171,7 @@ class Scripts extends BaseModel
         self::updateAll(['name' => $this->name], ['link' => $this->id]);
     }
 
-	/**
+    /**
     * Удалить скрипт и все его дочерние элементы по id
     * Также удаляет все созданные на эти элементы ссылки
     *
@@ -196,7 +197,7 @@ class Scripts extends BaseModel
         return true;
     }
 
-	/**
+    /**
     * Удаляет все ссылки созданные на скрипт
     * и его дочерние элементы.
     *
@@ -217,8 +218,8 @@ class Scripts extends BaseModel
                 foreach ($links as $link) {
                     $this->delScript($link->id);
                 }
-            return true;
             }
+            return true;
         }
         return false;
     }
@@ -260,7 +261,7 @@ class Scripts extends BaseModel
      * Вычисляет смещение для манипуляций с деревом
      *
      * @var object $script
-     * @return boolean / int
+     * @return int / boolean
      */
     public function getElementsOffset($script = null)
     {
@@ -274,7 +275,7 @@ class Scripts extends BaseModel
      * Ищет скрипт по id.
      *
      * @var int $scriptId
-     * @return boolean / object
+     * @return object / boolean
      */
     public static function getScriptById($scriptId = null)
     {
@@ -291,7 +292,7 @@ class Scripts extends BaseModel
      * Ищет дочерние элементы скрипта.
      *
      * @var int / object $script
-     * @return boolean / object
+     * @return object / boolean
      */
     public static function getScriptChildren($script = null)
     {
@@ -322,7 +323,7 @@ class Scripts extends BaseModel
      * по родительскому скрипту.
      *
      * @var int / object $script
-     * @return boolean / object
+     * @return object / boolean
      */
     public static function getBranch($script = null)
     {

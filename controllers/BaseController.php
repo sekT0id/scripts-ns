@@ -53,13 +53,15 @@ class BaseController extends Controller
 
     public function beforeAction($action)
     {
-        // Неавторизованный пользователь перенаправляется
-        // на экшн авторизации
         if (parent::beforeAction($action)) {
+            // Неавторизованный пользователь перенаправляется
+            // на экшн авторизации
             if ($action->id != 'login' && Yii::$app->user->isGuest) {
                 return $this->redirect(['/site/login']);
             }
 
+            // Если находимся не в рамках звонковой сессии
+            // то разрушаем php сессию
             if ($action->controller->id != 'script' and $action->id != 'view') {
                 $this->destroySession();
             }

@@ -10,8 +10,9 @@ use yii\helpers\Url;
  * This is the model class for table "Sessions".
  *
  * @property integer $id
- * @property string $name
- * @property string $data
+ * @property integer $userId
+ * @property integer $clientId
+ * @property string $timeStart
   */
 class Sessions extends BaseModel
 {
@@ -46,6 +47,13 @@ class Sessions extends BaseModel
             'timeStart' => 'Дата и время начала сессии',
         ];
     }
+
+    /**
+     * создает новую запись
+     * и возвращает её идентификатор.
+     *
+     * @return int (inserted id)
+     */
     public function start()
     {
         // Запускаем транзакцию, так как будем выполнять

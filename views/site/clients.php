@@ -4,7 +4,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-use yii\grid\GridView;
+use app\widgets\Grid;
 
 $this->title = 'My Yii Application';
 ?>
@@ -13,7 +13,7 @@ $this->title = 'My Yii Application';
     <div class="body-content">
         <div class="row">
 
-            <h1>Начать работу</h1>
+            <h1>Клиенты</h1>
 
             <div class="col-md-6 col-md-offset-3">
                 <div class="card card-block">
@@ -25,47 +25,11 @@ $this->title = 'My Yii Application';
 
             <div class="col-md-6 col-md-offset-3">
                 <div class="card card-block">
-                    <?php echo GridView::widget([
-                        'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
-                            //['class' => 'yii\grid\SerialColumn'],
-                            [
-                                'attribute' => 'hasSession',
-                                'label' => '123',
-                                'format' => 'text', // Возможные варианты: raw, html
 
-                                'content' => //function($data) {
-                                    function ($model, $index, $widget) {
-                                        return Html::checkbox('foo[]', $model->hasSession, ['value' => $index, 'disabled' => true]);
-                                    }
-//                                    if ($data->hasSession) {
-//                                        return $data->hasSession;
-//                                        return '+++';
-//                                    }
-//                                    return '---';
-//                                },
-
-//                                'filter' => [
-//                                    'true' => 'yes',
-//                                    'false' => 'no',
-//                                ],
-                            ],
-                            [
-                                'attribute' => 'name',
-                                'label' => 'Наименование',
-                                'format' => 'raw',
-                                'value' => function($data) {
-                                    return $data->name;
-                                }
-                            ],
-                            //'name:ntext',
-                            'phone:ntext',
-                            'data:ntext',
-
-                            //['class' => 'yii\grid\ActionColumn'],
-                        ],
+                    <?php echo Grid::widget([
+                        'show' => 'fullView',
                     ]);?>
+
                 </div>
             </div>
 

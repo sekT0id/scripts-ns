@@ -10,8 +10,9 @@ use yii\web\IdentityInterface;
  * This is the model class for table "clients".
  *
  * @property integer $id
- * @property string $name
- * @property string $data
+ * @property string $username
+ * @property string $userIp
+ * @property string $authKey
  */
 
 class Users extends ActiveRecord implements IdentityInterface
@@ -50,6 +51,9 @@ class Users extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getUser()
     {
         if ($this->_user === false) {

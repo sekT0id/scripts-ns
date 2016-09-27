@@ -215,3 +215,9 @@ input[type=text] {
 .dropdown-menu .glyphicon {
   line-height: normal;
 }
+.grid-view a:hover span {
+  color: #2BBBAD;
+}
+.grid-view .table-modal tr:hover {
+  cursor: pointer;
+}

@@ -60,7 +60,9 @@ $this->title = 'My Yii Application';
                 <div class="modal-body">
 
                     <?php \yii\widgets\Pjax::begin();?>
-                        <?php echo grid::widget();?>
+                        <?php echo grid::widget([
+                            'show' => 'modalView',
+                        ]);?>
                     <?php \yii\widgets\Pjax::end();?>
 
                 </div>

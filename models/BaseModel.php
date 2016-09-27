@@ -22,20 +22,32 @@ class BaseModel extends \yii\db\ActiveRecord
         return self::find()->where(['id' => $searchedId])->one();
     }
 
+    /**
+     * Задаем для всех типов запросов дополнительную
+     * фильтрацию по id пользователя
+     *
+     * @return ActiveRecord object
+     */
     public static function find()
     {
         return parent::find()->andWhere(['userId' => self::getUserId()]);
     }
 
+    /**
+     * Автоматическая запись данных в поля
+     */
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+            // id текущего пользователя
             if ($this->hasAttribute('userId')) {
                 $this->userId = self::getUserId();
             }
+            // Дата и время начала действия
             if ($this->hasAttribute('timeStart')) {
                 $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
             }
+            // Признак существования сесси для клиента
             if ($this->hasAttribute('hasSession')) {
                 $this->hasSession = true;
             }
@@ -45,6 +57,11 @@ class BaseModel extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * Возвращает информацию о текущем залогиненом пользователе.
+     *
+     * @return ActiveRecord object
+     */
     public static function getUserId()
     {
         $user = Yii::$app->get('user', false);
