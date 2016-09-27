@@ -7,5 +7,5 @@ SirTrevor.setDefaults({
 // Init new Sir Trevor editor
 var editor = new SirTrevor.Editor({
     el: document.querySelector('#sir-trevor-textArea'),
-    defaultType: 'Text',
+    defaultType: 'Text'
 });

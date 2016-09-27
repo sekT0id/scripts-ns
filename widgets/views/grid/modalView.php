@@ -13,11 +13,7 @@ echo GridView::widget([
     'rowOptions' => function ($model) {
         return [
             'id' => $model['id'],
-            'onclick' =>"
-                $('tr').removeClass('btn-default');
-                $(this).toggleClass('btn-default');
-                $('#form-clientid').val(".$model['id'].");"
-            ];
+        ];
     },
     'columns' => [
         //['class' => 'yii\grid\SerialColumn'],

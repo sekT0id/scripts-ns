@@ -24,9 +24,8 @@ $this->title = 'My Yii Application';
                         <?php foreach ($data as $script) :?>
 
                                 <?php echo Html::tag('button', $script->name, [
-                                    'id'    => 'delete-button',
                                     'type'  => 'button',
-                                    'class' => 'btn btn-default btn-block',
+                                    'class' => 'btn btn-default btn-block btn-start',
                                     'data-toggle' => 'modal',
                                     'data-target' => '#myModal',
                                     'onClick' => "$('#form-id').val($script->id)",

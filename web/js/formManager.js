@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
     // Событие перед отправой формы, определенное в Yii
     $('form').on('beforeSubmit', function () {
         // Заблокировать элементы формы

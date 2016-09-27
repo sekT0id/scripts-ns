@@ -47,7 +47,7 @@ echo GridView::widget([
                             '<span class="glyphicon glyphicon-pencil"></span>',
                             Url::toRoute(['client/edit', 'clientId' => $model->id])
                         );
-                },
+                    },
             ],
         ]
     ],

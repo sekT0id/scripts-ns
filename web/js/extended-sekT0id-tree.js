@@ -1,4 +1,4 @@
-(function ($) {
+$(document).ready(function () {
     function init() {
         $('.easy-tree').EasyTree({
             addable: false,
@@ -9,4 +9,4 @@
     }
 
     window.onload = init();
-})(jQuery)
+});

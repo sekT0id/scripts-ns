@@ -30,6 +30,7 @@ class AppAsset extends AssetBundle
         '/libs/bootstrap/js/bootstrap.min.js',
         '/libs/mbd/js/mdb.min.js',
         '/js/formManager.js',
+        '/js/extended.js',
     ];
     public $depends = [
         //'yii\web\YiiAsset',
