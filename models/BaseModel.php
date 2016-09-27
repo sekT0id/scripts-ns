@@ -49,7 +49,7 @@ class BaseModel extends \yii\db\ActiveRecord
             }
             // Признак существования сесси для клиента
             if ($this->hasAttribute('hasSession')) {
-                $this->hasSession = true;
+                $this->hasSession = 1;
             }
             return true;
         } else {

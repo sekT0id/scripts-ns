@@ -84,7 +84,7 @@ class ScriptController extends BaseController
             // значит стартуем новую сессию звонка
             if (isset($model->clientId)) {
 
-                $client = new Clients;
+                $client = Clients::getById($model->clientId);
 
                 $modelSession = new Sessions;
                 $modelSession->clientId  = $model->clientId;

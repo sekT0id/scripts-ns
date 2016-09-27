@@ -56,7 +56,7 @@ class Users extends ActiveRecord implements IdentityInterface
      */
     public function getUser()
     {
-        if ($this->_user === false) {
+        if ($this->_user === false || $this->_user === null) {
             $this->_user = static::findOne(['userIp' => $this->userIp]);
         }
         return $this->_user;
