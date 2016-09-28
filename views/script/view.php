@@ -1,6 +1,9 @@
 <?php
 
 use yii\helpers\Url;
+
+use app\widgets\ClientInfo;
+
 /* @var $this yii\web\View */
 /* @var $script app\extended\models\Script */
 /* @var $scriptRecent app\extended\models\Script */
@@ -15,7 +18,12 @@ $decodedText = json_decode($script->data);
 
             <h1><?php echo $script->name;?></h1>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-3">
+                <?php echo ClientInfo::widget();?>
+            </div>
+
+            <div class="col-md-6">
+
                 <div class="card card-block">
 
                     <?php foreach($decodedText->data as $key => $block) :?>
@@ -35,9 +43,7 @@ $decodedText = json_decode($script->data);
                     <?php endforeach;?>
 
                 </div>
-            </div>
 
-            <div class="col-md-6 col-md-offset-3 text-center">
                 <div class="card card-block">
 
                     <?php if (isset($scriptRecent) && $scriptRecent != []) :?>

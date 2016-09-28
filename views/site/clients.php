@@ -6,7 +6,6 @@ use yii\helpers\Html;
 
 use app\widgets\Grid;
 
-$this->title = 'My Yii Application';
 ?>
 
 <div class="site-index">

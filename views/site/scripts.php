@@ -17,8 +17,6 @@ $this->registerJsFile('/js/extended-sekT0id-tree.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
 ]);
-
-$this->title = 'My Yii Application';
 ?>
 
 <div class="site-index">

@@ -126,7 +126,6 @@ class BaseController extends Controller
 
         // Перекидываем на главную страницу
         if (!Yii::$app->user->isGuest) {
-            //return $this->redirect(['/site/index']);
             return $this->goHome();
         }
     }

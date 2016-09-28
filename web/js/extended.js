@@ -1,11 +1,10 @@
 $(document).ready(function () {
-    $(".table-modal tr").click(function () {
+    $(".table-modal tr").bind("click", function (e) {
         $("tr").removeClass("btn-default");
         $(this).toggleClass("btn-default");
         $("#form-clientid").val($(this).attr("id"));
         $("button[type='submit']").removeAttr("disabled");
     });
-
 
     $(".item-modal a").click(function () {
         var id = $(this).attr("data-set");
@@ -39,3 +38,4 @@ $(document).ready(function () {
         $("button[type='submit']").attr('disabled', 'disabled');
     });
 });
+

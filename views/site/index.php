@@ -7,9 +7,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\widgets\Grid;
 
-//use yii\grid\GridView;
-
-$this->title = 'My Yii Application';
 ?>
 
 <div class="site-index">

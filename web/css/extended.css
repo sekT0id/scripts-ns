@@ -132,7 +132,7 @@ input[type=text] {
   content: "\e114";
 }
 /**
- * Easy tree options
+ * Easy tree options / BEGN
  */
 .easy-tree li {
   padding: 0 0 0 20px;
@@ -200,7 +200,10 @@ input[type=text] {
   color: #00b59f;
 }
 /**
- * Dropdown
+ * Easy tree options / END
+ */
+/**
+ * Dropdown menu / BEGIN
  */
 .dropdown-menu {
   width: 230px;
@@ -215,9 +218,28 @@ input[type=text] {
 .dropdown-menu .glyphicon {
   line-height: normal;
 }
+/**
+ * Dropdown menu / END
+ */
+/**
+ * Grid view / BEGIN
+ */
 .grid-view a:hover span {
   color: #2BBBAD;
 }
 .grid-view .table-modal tr:hover {
   cursor: pointer;
 }
+/**
+ * Grid view / END
+ */
+/**
+ * Client block / BEGIN
+ */
+.client-block span {
+  margin-right: 10px;
+  color: #2bbbad;
+}
+/**
+ * Client block / END
+ */

@@ -99,6 +99,7 @@ class ScriptController extends BaseController
                 // и возвращает её идентификатор в случае успеха.
                 $session['sessionId'] = $modelSession->start();
 
+                $client->hasSession = 1;
                 $client->update();
             }
             $script = $model->id;
