@@ -55,6 +55,6 @@ class SessionsDetails extends BaseModel
      */
     public function getScript()
     {
-        return $this->hasOne(Scripts::className(), ['scriptId' => 'id']);
+        return $this->hasOne(Scripts::className(), ['id' => 'scriptId']);
     }
 }

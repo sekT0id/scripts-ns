@@ -86,6 +86,6 @@ class Sessions extends BaseModel
      */
     public function getDetails()
     {
-        return $this->hasMany(SessionsDetails::className(), ['id' => 'sessionId']);
+        return $this->hasMany(SessionsDetails::className(), ['sessionId' => 'id']);
     }
 }

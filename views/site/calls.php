@@ -4,7 +4,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
-use app\widgets\Grid;
+use app\widgets\exListView;
 
 ?>
 
@@ -16,9 +16,7 @@ use app\widgets\Grid;
 
             <div class="col-md-8 col-md-offset-2">
                 <div class="card card-block">
-                    <?php echo grid::widget([
-                        'show' => 'modalView',
-                    ]);?>
+                    <?php echo exListView::widget();?>
                 </div>
             </div>
         </div>
