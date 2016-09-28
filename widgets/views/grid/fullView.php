@@ -7,6 +7,7 @@ use yii\grid\GridView;
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
+    'summary' => 'Показано {count} из {totalCount}',
     'columns' => [
         //['class' => 'yii\grid\SerialColumn'],
         [

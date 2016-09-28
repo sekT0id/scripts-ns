@@ -17,8 +17,6 @@ $this->registerJsFile('/js/extended-sekT0id-tree.js', [
     'depends' => 'yii\web\JqueryAsset',
     'position' => $this::POS_END,
 ]);
-
-$this->title = 'My Yii Application';
 ?>
 
 <div class="site-index">
@@ -27,7 +25,7 @@ $this->title = 'My Yii Application';
 
             <h1>Скрипты</h1>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="card card-block">
                     <a href="<?php echo Url::toRoute(['script/new']);?>" class="btn btn-default btn-block">
                         Добавить
@@ -35,7 +33,7 @@ $this->title = 'My Yii Application';
                 </div>
             </div>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <?php echo TreeView::widget([
                     'treeType' => 'nested',
                     'treeOptions' => [

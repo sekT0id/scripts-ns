@@ -1,6 +1,10 @@
 <?php
 
 use yii\helpers\Url;
+
+use app\widgets\ClientInfo;
+use yii\widgets\ActiveForm;
+
 /* @var $this yii\web\View */
 /* @var $script app\extended\models\Script */
 /* @var $scriptRecent app\extended\models\Script */
@@ -15,10 +19,12 @@ $decodedText = json_decode($script->data);
 
             <h1><?php echo $script->name;?></h1>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
+                <?php echo ClientInfo::widget();?>
+
                 <div class="card card-block">
 
-                    <?php foreach($decodedText->data as $key => $block) :?>
+                    <?php foreach ($decodedText->data as $key => $block) :?>
 
                         <?php if ($block->type == 'text') :?>
                             <?php echo $block->data->text;?>
@@ -35,9 +41,7 @@ $decodedText = json_decode($script->data);
                     <?php endforeach;?>
 
                 </div>
-            </div>
 
-            <div class="col-md-6 col-md-offset-3 text-center">
                 <div class="card card-block">
 
                     <?php if (isset($scriptRecent) && $scriptRecent != []) :?>
@@ -48,9 +52,25 @@ $decodedText = json_decode($script->data);
                                 <?php echo $recent->name;?>
                             </a>
                         <?php endforeach;?>
-                    <?php else: ?>
+                    <?php else :?>
+
+                        <?php $form = ActiveForm::begin([
+                            'action' => ['script/save'],
+                            'enableClientValidation' => true,
+                            'enableAjaxValidation' => false,
+                            'options' => ['enctype' => 'multipart/form-data']
+                        ]);?>
+
+                            <?php echo $form->field($model, 'comment')
+                                ->textArea([
+                                    'autofocus' => 'autofocus',
+                                    'rows' => 3,
+                                ]);?>
+
+                        <?php ActiveForm::end();?>
+
                         <a class="btn btn-warning btn-block" href="<?php echo Url::toRoute(['/site/index']);?>">
-                            На главную
+                            Завершить
                         </a>
                     <?php endif;?>
 

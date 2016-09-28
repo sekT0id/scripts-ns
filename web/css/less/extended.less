@@ -185,7 +185,7 @@ input[type=text] {
 }
 
 /**
- * Easy tree options
+ * Easy tree options / BEGN
  */
 .easy-tree {
     li {
@@ -268,9 +268,12 @@ input[type=text] {
         color: @element-color-dark-hover;
     }
 }
+/**
+ * Easy tree options / END
+ */
 
 /**
- * Dropdown
+ * Dropdown menu / BEGIN
  */
 .dropdown-menu {
     width: 230px;
@@ -288,7 +291,13 @@ input[type=text] {
         line-height: normal;
     }
 }
+/**
+ * Dropdown menu / END
+ */
 
+/**
+ * Grid view / BEGIN
+ */
 .grid-view {
     a:hover {
         span {
@@ -299,3 +308,33 @@ input[type=text] {
         cursor: pointer;
     }
 }
+/**
+ * Grid view / END
+ */
+
+/**
+ * Client block / BEGIN
+ */
+.client-block {
+    span {
+        margin-right: 10px;
+        color: @element-color;
+    }
+    .row {
+        position: relative;
+    }
+    .row::before {
+        left: 33.33333333%;
+        top: 50%;
+        position: absolute;
+        content: '';
+        border-left: 1px dashed #bcbcbc;
+        width: 1px;
+        height: 100%;
+        display: block;
+        transform: translate(-33.33333333%, -50%);
+    }
+}
+/**
+ * Client block / END
+ */

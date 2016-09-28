@@ -132,7 +132,7 @@ input[type=text] {
   content: "\e114";
 }
 /**
- * Easy tree options
+ * Easy tree options / BEGN
  */
 .easy-tree li {
   padding: 0 0 0 20px;
@@ -200,7 +200,10 @@ input[type=text] {
   color: #00b59f;
 }
 /**
- * Dropdown
+ * Easy tree options / END
+ */
+/**
+ * Dropdown menu / BEGIN
  */
 .dropdown-menu {
   width: 230px;
@@ -215,9 +218,42 @@ input[type=text] {
 .dropdown-menu .glyphicon {
   line-height: normal;
 }
+/**
+ * Dropdown menu / END
+ */
+/**
+ * Grid view / BEGIN
+ */
 .grid-view a:hover span {
   color: #2BBBAD;
 }
 .grid-view .table-modal tr:hover {
   cursor: pointer;
 }
+/**
+ * Grid view / END
+ */
+/**
+ * Client block / BEGIN
+ */
+.client-block span {
+  margin-right: 10px;
+  color: #2bbbad;
+}
+.client-block .row {
+  position: relative;
+}
+.client-block .row::before {
+  left: 33.33333333%;
+  top: 50%;
+  position: absolute;
+  content: '';
+  border-left: 1px dashed #bcbcbc;
+  width: 1px;
+  height: 100%;
+  display: block;
+  transform: translate(-33.33333333%, -50%);
+}
+/**
+ * Client block / END
+ */

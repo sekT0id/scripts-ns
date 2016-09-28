@@ -47,10 +47,6 @@ class BaseModel extends \yii\db\ActiveRecord
             if ($this->hasAttribute('timeStart')) {
                 $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
             }
-            // Признак существования сесси для клиента
-            if ($this->hasAttribute('hasSession')) {
-                $this->hasSession = 1;
-            }
             return true;
         } else {
             return false;

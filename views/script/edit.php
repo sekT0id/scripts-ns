@@ -31,7 +31,8 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                 'options' => ['enctype' => 'multipart/form-data']
             ]);?>
 
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-8 col-md-offset-2">
+
 
                     <div class="card card-block">
 
@@ -64,8 +65,7 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
 
                 </div>
 
-                <div class="col-md-2">
-
+                <div class="col-md-8 col-md-offset-2">
                     <div class="card card-block text-center">
 
                         <?php echo Html::submitButton('Сохранить', [
@@ -75,25 +75,17 @@ $this->registerJsFile('/js/extended-sir-trevor.js', [
                             'class' => 'btn btn-fixed btn-warning',
                             'href' => Url::toRoute(['site/view', 'alias' => 'scripts']),
                         ]);?>
+                        <?php if ($script) :?>
+                            <?php echo Html::tag('button', 'Удалить', [
+                                'id'    => 'delete-button',
+                                'type'  => 'button',
+                                'class' => 'btn btn-fixed btn-danger',
+                                'data-toggle' => 'modal',
+                                'data-target' => '#myModal',
+                            ]);?>
+                        <?php endif;?>
 
                     </div>
-
-                    <?php if ($script) :?>
-                        <div class="card">
-                           <div class="card-block bg-danger text-center">
-
-                                <?php echo Html::tag('button', 'Удалить', [
-                                    'id'    => 'delete-button',
-                                    'type'  => 'button',
-                                    'class' => 'btn btn-fixed btn-danger',
-                                    'data-toggle' => 'modal',
-                                    'data-target' => '#myModal',
-                                ]);?>
-
-                           </div>
-                        </div>
-                    <?php endif;?>
-
                 </div>
 
             <?php ActiveForm::end();?>

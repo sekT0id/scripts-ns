@@ -6,7 +6,6 @@ use yii\helpers\Html;
 
 use app\widgets\Grid;
 
-$this->title = 'My Yii Application';
 ?>
 
 <div class="site-index">
@@ -15,7 +14,7 @@ $this->title = 'My Yii Application';
 
             <h1>Клиенты</h1>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="card card-block">
                     <a href="<?php echo Url::toRoute(['client/new']);?>" class="btn btn-default btn-block">
                         Добавить
@@ -23,7 +22,7 @@ $this->title = 'My Yii Application';
                 </div>
             </div>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="card card-block">
 
                     <?php echo Grid::widget([

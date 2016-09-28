@@ -9,10 +9,7 @@
 
     $.fn.EasyTree = function (options) {
         var defaults = {
-            selectable: false,
-            deletable: false,
-            editable: false,
-            addable: false,
+            expanded: false,
             i18n: {
                 deleteNull: 'Select a node to delete',
                 deleteConfirmation: 'Delete this node?',
@@ -52,6 +49,10 @@
             });
 
             $(easyTree).find('li.item:has(ul.node)').addClass('parent_li').find(' > span').attr('title', options.i18n.collapseTip);
+
+            if (options.expanded == false) {
+                $(easyTree).find('li.parent_li').find(' > ul > li').hide();
+            }
 
             // collapse or expand
             $(easyTree).delegate('li.parent_li > span', 'click', function (e) {
