@@ -73,11 +73,12 @@ class ScriptController extends BaseController
         $session = Yii::$app->session;
         $session->open();
 
+        $model = new Form;
+
         // Если не получили id скрипта из $_GET
         if ($script === null) {
 
             // То пробуем смотреть его в $_POST
-            $model = new Form;
             $model->load(Yii::$app->request->post());
 
             // Если id скрипта передано из формы,
@@ -119,6 +120,7 @@ class ScriptController extends BaseController
         $scriptRecent = Scripts::getScriptChildren($script);
 
         return $this->render('view', [
+            'model'       => $model,
             'script'       => $script,
             'scriptRecent' => $scriptRecent,
         ]);

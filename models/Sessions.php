@@ -68,4 +68,24 @@ class Sessions extends BaseModel
         }
         return $this->id;
     }
+
+    /**
+     * Relation function
+     *
+     * @return ActiveRecord object
+     */
+    public function getClient()
+    {
+        return $this->hasOne(Clients::className(), ['id' => 'clientId']);
+    }
+
+    /**
+     * Relation function
+     *
+     * @return ActiveRecord object
+     */
+    public function getDetails()
+    {
+        return $this->hasMany(SessionsDetails::className(), ['id' => 'sessionId']);
+    }
 }

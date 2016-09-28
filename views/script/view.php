@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 
 use app\widgets\ClientInfo;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $script app\extended\models\Script */
@@ -23,7 +24,7 @@ $decodedText = json_decode($script->data);
 
                 <div class="card card-block">
 
-                    <?php foreach($decodedText->data as $key => $block) :?>
+                    <?php foreach ($decodedText->data as $key => $block) :?>
 
                         <?php if ($block->type == 'text') :?>
                             <?php echo $block->data->text;?>
@@ -51,9 +52,25 @@ $decodedText = json_decode($script->data);
                                 <?php echo $recent->name;?>
                             </a>
                         <?php endforeach;?>
-                    <?php else: ?>
+                    <?php else :?>
+
+                        <?php $form = ActiveForm::begin([
+                            'action' => ['script/save'],
+                            'enableClientValidation' => true,
+                            'enableAjaxValidation' => false,
+                            'options' => ['enctype' => 'multipart/form-data']
+                        ]);?>
+
+                            <?php echo $form->field($model, 'comment')
+                                ->textArea([
+                                    'autofocus' => 'autofocus',
+                                    'rows' => 3,
+                                ]);?>
+
+                        <?php ActiveForm::end();?>
+
                         <a class="btn btn-warning btn-block" href="<?php echo Url::toRoute(['/site/index']);?>">
-                            На главную
+                            Завершить
                         </a>
                     <?php endif;?>
 
