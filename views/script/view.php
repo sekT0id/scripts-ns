@@ -23,7 +23,7 @@ $decodedText = json_decode($script->data);
 
                 <div class="card card-block">
 
-                    <?php foreach($decodedText->data as $key => $block) :?>
+                    <?php foreach ($decodedText->data as $key => $block) :?>
 
                         <?php if ($block->type == 'text') :?>
                             <?php echo $block->data->text;?>
@@ -43,15 +43,27 @@ $decodedText = json_decode($script->data);
 
                 <div class="card card-block">
 
-                    <?php if (isset($scriptRecent) && $scriptRecent != []) :?>
+                    <?php if (isset($scriptRecent) && $scriptRecent = []) :?>
                         <?php foreach ($scriptRecent as $recent) :?>
                             <a
                                 class="btn btn-default btn-block"
-                                href="<?php echo Url::toRoute(['/script/view', 'script' => ($recent->link) ? $recent->link : $recent->id]);?>">
+                                href="<?php echo Url::toRoute([
+                                    '/script/view',
+                                    'script' => ($recent->link) ? $recent->link : $recent->id
+                                ]);?>"
+                            >
                                 <?php echo $recent->name;?>
                             </a>
                         <?php endforeach;?>
-                    <?php else: ?>
+                    <?php else :?>
+
+                        <?php //$form = ActiveForm::begin([
+//                            'action' => ['script/addlink'],
+//                            'enableClientValidation' => true,
+//                            'enableAjaxValidation' => false,
+//                            'options' => ['enctype' => 'multipart/form-data']
+                        //]);?>
+
                         <a class="btn btn-warning btn-block" href="<?php echo Url::toRoute(['/site/index']);?>">
                             На главную
                         </a>
