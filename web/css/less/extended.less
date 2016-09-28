@@ -320,6 +320,20 @@ input[type=text] {
         margin-right: 10px;
         color: @element-color;
     }
+    .row {
+        position: relative;
+    }
+    .row::before {
+        left: 33.33333333%;
+        top: 50%;
+        position: absolute;
+        content: '';
+        border-left: 1px dashed #bcbcbc;
+        width: 1px;
+        height: 100%;
+        display: block;
+        transform: translate(-33.33333333%, -50%);
+    }
 }
 /**
  * Client block / END

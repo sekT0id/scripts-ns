@@ -1,10 +1,4 @@
 $(document).ready(function () {
-    $(".table-modal tr").bind("click", function (e) {
-        $("tr").removeClass("btn-default");
-        $(this).toggleClass("btn-default");
-        $("#form-clientid").val($(this).attr("id"));
-        $("button[type='submit']").removeAttr("disabled");
-    });
 
     $(".item-modal a").click(function () {
         var id = $(this).attr("data-set");
@@ -39,3 +33,18 @@ $(document).ready(function () {
     });
 });
 
+$(".modal-body")
+    .on("click", "tbody tr", function (event) {
+        $("tr").removeClass("btn-default");
+        $(this).toggleClass("btn-default");
+        $("#form-clientid").val($(this).attr("id"));
+        $("button[type='submit']").removeAttr("disabled");
+
+        return false;
+    })
+    .on("blur", "thead select", function (event) {
+        $("tr").removeClass("btn-default");
+        $("button[type='submit']").attr('disabled', 'disabled');
+
+        return false;
+    });

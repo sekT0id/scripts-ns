@@ -18,11 +18,8 @@ $decodedText = json_decode($script->data);
 
             <h1><?php echo $script->name;?></h1>
 
-            <div class="col-md-3">
+            <div class="col-md-8 col-md-offset-2">
                 <?php echo ClientInfo::widget();?>
-            </div>
-
-            <div class="col-md-6">
 
                 <div class="card card-block">
 

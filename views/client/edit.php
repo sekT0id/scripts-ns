@@ -23,7 +23,7 @@ use yii\widgets\MaskedInput
                 'options' => ['enctype' => 'multipart/form-data']
             ]);?>
 
-                <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-8 col-md-offset-2">
                     <div class="card card-block">
 
                         <?php echo $form->field($model, 'id') // id редактируемого клиента.
@@ -55,8 +55,7 @@ use yii\widgets\MaskedInput
                     </div>
                 </div>
 
-                <div class="col-md-2">
-
+                <div class="col-md-8 col-md-offset-2">
                     <div class="card card-block text-center">
 
                         <?php echo Html::submitButton('Сохранить', [
@@ -67,12 +66,7 @@ use yii\widgets\MaskedInput
                             'href' => Url::toRoute(['site/view', 'alias' => 'clients']),
                         ]);?>
 
-                    </div>
-
-                    <?php if ($data) :?>
-                        <div class="card">
-                           <div class="card-block bg-danger text-center">
-
+                        <?php if ($data) :?>
                                 <?php echo Html::tag('button', 'Удалить', [
                                     'id'    => 'delete-button',
                                     'type'  => 'button',
@@ -80,11 +74,9 @@ use yii\widgets\MaskedInput
                                     'data-toggle' => 'modal',
                                     'data-target' => '#myModal',
                                 ]);?>
+                        <?php endif;?>
 
-                           </div>
-                        </div>
-                    <?php endif;?>
-
+                    </div>
                 </div>
 
             <?php ActiveForm::end();?>

@@ -15,7 +15,7 @@ use app\widgets\Grid;
 
             <h1>Начать работу</h1>
 
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="card card-block">
                     <?php if ($data) :?>
                         <?php foreach ($data as $script) :?>

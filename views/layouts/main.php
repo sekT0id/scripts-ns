@@ -30,11 +30,8 @@ $this->title = 'SmileExpo scripts';
         <?php echo BaseWidget::widget(['show' => 'nav']);?>
 
         <div class="content container-fluid">
-
             <?php echo $content;?>
-
         </div>
-
 
     </div>
 
