@@ -9,9 +9,6 @@ use yii\base\InvalidConfigException;
 
 class TreeView extends BaseWidget
 {
-    // Модель данных
-    public $model = null;
-
     // Тип отрисовки дерева
     public $treeType = 'default';
     public $treeOptions = [

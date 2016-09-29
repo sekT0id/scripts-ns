@@ -14,6 +14,7 @@ class ClientInfo extends BaseWidget
 
         return Clients::getById($session['clientId']);
     }
+
     public function init()
     {
         parent::init();

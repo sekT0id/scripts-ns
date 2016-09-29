@@ -16,6 +16,7 @@ class Form extends Model
     public $phone;
 
     public $text;
+    public $comment;
     public $data;
 
     /**
@@ -37,6 +38,7 @@ class Form extends Model
                 'parentId',
                 'clientId',
                 'text',
+                'comment',
                 'id',
             ],
                 'string'],
@@ -46,11 +48,11 @@ class Form extends Model
     public function attributeLabels()
     {
         return [
-            'name'  => 'Наименование',
-            'phone' => 'Номер телефона',
-
-            'data'  => 'Дополнительная информация',
-            'text'  => 'Текст',
+            'name'     => 'Наименование',
+            'phone'    => 'Номер телефона',
+            'data'     => 'Дополнительная информация',
+            'text'     => 'Текст',
+            'comment'  => 'Оставить комментарий',
         ];
     }
 }

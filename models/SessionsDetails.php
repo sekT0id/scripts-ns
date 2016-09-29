@@ -47,4 +47,14 @@ class SessionsDetails extends BaseModel
             'timeStart' => 'Дата и время произведения перехода',
         ];
     }
+
+    /**
+     * Relation function
+     *
+     * @return ActiveRecord object
+     */
+    public function getScript()
+    {
+        return $this->hasOne(Scripts::className(), ['id' => 'scriptId']);
+    }
 }
