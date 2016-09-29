@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 use app\widgets\ClientInfo;
 use yii\widgets\ActiveForm;
@@ -45,6 +46,7 @@ $decodedText = json_decode($script->data);
                 <div class="card card-block">
 
                     <?php if (isset($scriptRecent) && $scriptRecent = []) :?>
+
                         <?php foreach ($scriptRecent as $recent) :?>
                             <a
                                 class="btn btn-default btn-block"
@@ -56,26 +58,42 @@ $decodedText = json_decode($script->data);
                                 <?php echo $recent->name;?>
                             </a>
                         <?php endforeach;?>
+
                     <?php else :?>
+                        <?php $session = Yii::$app->session;?>
+                        <?php if (isset($session['sessionId'])) :?>
 
-                        <?php $form = ActiveForm::begin([
-                            'action' => ['script/save'],
-                            'enableClientValidation' => true,
-                            'enableAjaxValidation' => false,
-                            'options' => ['enctype' => 'multipart/form-data']
-                        ]);?>
+                            <?php $form = ActiveForm::begin([
+                                'action' => ['session/save'],
+                                'enableClientValidation' => true,
+                                'enableAjaxValidation' => false,
+                                'options' => ['enctype' => 'multipart/form-data']
+                            ]);?>
 
-                            <?php echo $form->field($model, 'comment')
-                                ->textArea([
-                                    'autofocus' => 'autofocus',
-                                    'rows' => 3,
+                                <?php echo $form->field($model, 'comment')
+                                    ->textArea([
+                                        'autofocus' => 'autofocus',
+                                        'rows' => 3,
+                                    ]);?>
+
+                                <?php echo $form->field($model, 'id')
+                                    ->hiddenInput(['value' => $session['sessionId']])
+                                    ->label(false);?>
+
+                                <?php echo Html::tag('button', 'Завершить', [
+                                    'id'    => 'delete-button',
+                                    'type'  => 'submit',
+                                    'class' => 'btn btn-warning btn-block',
                                 ]);?>
 
-                        <?php ActiveForm::end();?>
+                            <?php ActiveForm::end();?>
 
-                        <a class="btn btn-warning btn-block" href="<?php echo Url::toRoute(['/site/index']);?>">
-                            Завершить
-                        </a>
+                        <?php else :?>
+                            <a class="btn btn-warning btn-block" href="<?php echo Url::toRoute(['/site/index']);?>">
+                                Завершить
+                            </a>
+                        <?php endif;?>
+
                     <?php endif;?>
 
                 </div>

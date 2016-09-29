@@ -1,8 +1,7 @@
 <?php
-
 use yii\widgets\ListView;
 ?>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
 <?php
 echo ListView::widget([
     'dataProvider' => $model,
@@ -10,7 +9,10 @@ echo ListView::widget([
 
     'options' => [
         'tag' => 'div',
-        'class' => 'panel panel-default',
+        'id' => 'accordion',
+        'class' => 'accordion',
+        'role' => 'tablist',
+        'aria-multiselectable' => 'true',
     ],
 
     'layout' => "{pager}\n{summary}\n{items}\n{pager}",
@@ -38,5 +40,3 @@ echo ListView::widget([
         'maxButtonCount' => 5,
     ],
 ]);
-?>
-</div>

@@ -62,7 +62,8 @@ class BaseController extends Controller
 
             // Если находимся не в рамках звонковой сессии
             // то разрушаем php сессию
-            if ($action->controller->id != 'script' and $action->id != 'view') {
+            if ($action->controller->id != 'script' and $action->id != 'view' ||
+                $action->controller->id != 'session') {
                 $this->destroySession();
             }
             return true;
@@ -90,11 +91,12 @@ class BaseController extends Controller
         }
 
         // Исполняем пользовательские миксины
-        if ( $this->hasMethod($mixinName) ) {
+        if ($this->hasMethod($mixinName)) {
             $data = call_user_func([$this, $mixinName], $data);
         }
 
-        // Отрисовываем вьюшку с найденым именем, либо стандартную, если alias не найден
+        // Отрисовываем вьюшку с найденым именем,
+        // либо стандартную, если alias не найден
         if (file_exists($this->viewPath . DIRECTORY_SEPARATOR . $alias . '.php')) {
             return $this->render($alias, $data);
         }
