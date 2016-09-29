@@ -45,7 +45,7 @@ $decodedText = json_decode($script->data);
 
                 <div class="card card-block">
 
-                    <?php if (isset($scriptRecent) && $scriptRecent = []) :?>
+                    <?php if (isset($scriptRecent) && $scriptRecent != []) :?>
 
                         <?php foreach ($scriptRecent as $recent) :?>
                             <a
@@ -60,6 +60,7 @@ $decodedText = json_decode($script->data);
                         <?php endforeach;?>
 
                     <?php else :?>
+
                         <?php $session = Yii::$app->session;?>
                         <?php if (isset($session['sessionId'])) :?>
 

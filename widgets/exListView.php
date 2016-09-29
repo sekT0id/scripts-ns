@@ -15,7 +15,7 @@ class exListView extends BaseWidget
         $this->model = new ActiveDataProvider([
             'query' => Sessions::find()
                 ->with('details.script')
-                ->orderBy('timeStart DESC'),
+                ->orderBy('id DESC'),
             'pagination' => [
                 'pageSize' => $this->pageSize,
             ],
