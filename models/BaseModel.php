@@ -45,7 +45,7 @@ class BaseModel extends \yii\db\ActiveRecord
             }
             // Дата и время начала действия
             if ($this->hasAttribute('timeStart')) {
-                $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
+                $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-m-d h:i:s'));
             }
             return true;
         } else {
