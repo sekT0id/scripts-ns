@@ -34,6 +34,7 @@ class Sessions extends BaseModel
         return [
             [['userId', 'clientId'], 'integer'],
             [['timeStart', 'comment'], 'string'],
+            [['phone'], 'safe'],
         ];
     }
 
@@ -80,6 +81,14 @@ class Sessions extends BaseModel
     public function getClient()
     {
         return $this->hasOne(Clients::className(), ['id' => 'clientId']);
+    }
+
+    public function getPhone() {
+        return $this->client->phone;
+    }
+
+    public function getClientName() {
+        return $this->client->name;
     }
 
     /**

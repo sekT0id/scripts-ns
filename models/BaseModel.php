@@ -30,7 +30,10 @@ class BaseModel extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return parent::find()->andWhere(['userId' => self::getUserId()]);
+        if (isset(self::$userId)) {
+            return parent::find()->andWhere(['userId' => self::getUserId()]);
+        }
+        return parent::find();
     }
 
     /**

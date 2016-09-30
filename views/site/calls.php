@@ -16,7 +16,9 @@ use app\widgets\exListView;
 
             <div class="col-md-8 col-md-offset-2">
                 <div class="card card-block">
-                    <?php echo exListView::widget();?>
+                    <?php echo exListView::widget([
+                        //'model' => $searchModel,
+                    ]);?>
                 </div>
             </div>
         </div>

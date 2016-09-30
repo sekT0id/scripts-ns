@@ -82,12 +82,10 @@ class Clients extends BaseModel
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query
+            ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'data', $this->data])
+            ->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['hasSession' => $this->hasSession]);
 
         return $dataProvider;
