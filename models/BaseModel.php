@@ -30,7 +30,10 @@ class BaseModel extends \yii\db\ActiveRecord
      */
     public static function find()
     {
-        return parent::find()->andWhere(['userId' => self::getUserId()]);
+        if (isset(self::$userId)) {
+            return parent::find()->andWhere(['userId' => self::getUserId()]);
+        }
+        return parent::find();
     }
 
     /**
@@ -45,7 +48,7 @@ class BaseModel extends \yii\db\ActiveRecord
             }
             // Дата и время начала действия
             if ($this->hasAttribute('timeStart')) {
-                $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
+                $this->timeStart = Yii::$app->formatter->asTimestamp(date('Y-m-d h:i:s'));
             }
             return true;
         } else {

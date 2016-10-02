@@ -39,9 +39,11 @@ label {
 }
 
 .cursor {
+
     &-help {
         cursor: help;
     }
+
     &-pointer {
         cursor: pointer;
     }
@@ -62,6 +64,7 @@ label {
 
 
 .badge {
+
     background-color: transparent;
 
     width: 30px;
@@ -145,18 +148,22 @@ input[type=text] {
 }
 
 .btn {
+
     &-fixed {
         width: 130px;
     }
+
     &-block {
         margin-bottom: @stdMarginBottom;
     }
+
     &-block:last-child {
         margin-bottom: 0;
     }
 }
 
 .card {
+
     background: @panelsBgColor;
     margin-bottom: @stdMarginBottom;
     min-width: 180px;
@@ -188,6 +195,7 @@ input[type=text] {
  * Easy tree options / BEGN
  */
 .easy-tree {
+
     li {
         padding: 0 0 0 20px;
         position: relative;
@@ -226,7 +234,9 @@ input[type=text] {
     li.item > span {
         float: left;
     }
+
     .item {
+
         &-content {
             padding: 10px 15px 10px 25px;
             margin-right: -17px;
@@ -239,6 +249,7 @@ input[type=text] {
     }
 
     .glyphicon {
+
         line-height: 35px;
 
         -webkit-transition: all .5s;
@@ -249,12 +260,15 @@ input[type=text] {
         &-folder-open {
             color: @element-color-dark;
         }
+
         &-folder-close {
             color: @element-color-dark;
         }
+
         &-file {
             color: @element-color;
         }
+
         &-file-open {
             color: #ffbb33;
         }
@@ -263,6 +277,7 @@ input[type=text] {
     li.parent_li > span:hover + div + ul li span.glyphicon-file {
         color: @element-color-spin;
     }
+
     li.parent_li > span:hover + div + ul li span.glyphicon-folder-open,
     li.parent_li > span:hover + div + ul li span.glyphicon-folder-close {
         color: @element-color-dark-hover;
@@ -276,6 +291,7 @@ input[type=text] {
  * Dropdown menu / BEGIN
  */
 .dropdown-menu {
+
     width: 230px;
 
     li {
@@ -299,11 +315,14 @@ input[type=text] {
  * Grid view / BEGIN
  */
 .grid-view {
+
     a:hover {
+
         span {
             color: #2BBBAD;
         }
     }
+
     .table-modal tr:hover {
         cursor: pointer;
     }
@@ -316,13 +335,16 @@ input[type=text] {
  * Client block / BEGIN
  */
 .client-block {
+
     span {
         margin-right: 10px;
         color: @element-color;
     }
+
     .row {
         position: relative;
     }
+
     .row::before {
         left: 33.33333333%;
         top: 50%;
@@ -337,4 +359,45 @@ input[type=text] {
 }
 /**
  * Client block / END
+ */
+
+/**
+ * Accordion / BEGIN
+ */
+.accordion {
+
+    .panel {
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #eee;
+
+        &-heading {
+            border: 0;
+            padding: 0;
+            margin-bottom: .5rem;
+            background-color: inherit;
+        }
+    }
+
+    .panel:hover {
+        background-color: @row-color-hover;
+    }
+
+    .panel-body {
+        padding: 15px 0;
+    }
+
+    .glyphicon {
+        margin-right: 5px;
+    }
+
+    .glyphicon-comment {
+        color: #F80;
+    }
+}
+/**
+ * Accordion / END
  */

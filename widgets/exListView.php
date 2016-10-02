@@ -4,7 +4,10 @@ namespace app\widgets;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+
+use app\models\Form;
 use app\models\Sessions;
+use app\models\SessionsSearch;
 
 class exListView extends BaseWidget
 {
@@ -15,7 +18,7 @@ class exListView extends BaseWidget
         $this->model = new ActiveDataProvider([
             'query' => Sessions::find()
                 ->with('details.script')
-                ->orderBy('timeStart DESC'),
+                ->orderBy('id DESC'),
             'pagination' => [
                 'pageSize' => $this->pageSize,
             ],
@@ -26,8 +29,14 @@ class exListView extends BaseWidget
     {
         parent::init();
 
-        $this->getData();
+        //$this->getData();
 
-        $this->data['model'] = $this->model;
+        //$this->data['searchModel'] = $this->model;
+        $searchModel = new SessionsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $this->data['model'] = $searchModel;
+        //$this->data['searchModel'] = $searchModel;
+        $this->data['dataProvider'] = $dataProvider;
     }
 }

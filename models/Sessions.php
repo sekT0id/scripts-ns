@@ -6,6 +6,8 @@ use Yii;
 
 use yii\helpers\Url;
 
+use yii\data\ActiveDataProvider;
+
 /**
  * This is the model class for table "Sessions".
  *
@@ -31,7 +33,8 @@ class Sessions extends BaseModel
     {
         return [
             [['userId', 'clientId'], 'integer'],
-            [['timeStart'], 'string'],
+            [['timeStart', 'comment'], 'string'],
+            [['phone'], 'safe'],
         ];
     }
 
@@ -44,6 +47,7 @@ class Sessions extends BaseModel
             'id'        => 'ID',
             'userId'    => 'Идентификатор пользователясистемы',
             'clientId'  => 'Идентификатор клиента',
+            'comment'   => 'Комментарий к звонку',
             'timeStart' => 'Дата и время начала сессии',
         ];
     }
@@ -77,6 +81,14 @@ class Sessions extends BaseModel
     public function getClient()
     {
         return $this->hasOne(Clients::className(), ['id' => 'clientId']);
+    }
+
+    public function getPhone() {
+        return $this->client->phone;
+    }
+
+    public function getClientName() {
+        return $this->client->name;
     }
 
     /**

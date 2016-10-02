@@ -29,7 +29,9 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-
+        'formatter' => [
+            'timeZone' => 'GMT+3',
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
