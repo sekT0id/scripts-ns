@@ -14,7 +14,7 @@ class InternetTest extends \PHPUnit_Framework_TestCase
      * @var Generator
      */
     private $faker;
-
+    
     public function setUp()
     {
         $faker = new Generator();
@@ -50,7 +50,7 @@ class InternetTest extends \PHPUnit_Framework_TestCase
         $emailAddress = $this->faker->email();
         $this->assertRegExp($pattern, $emailAddress);
     }
-
+    
     /**
      * @requires PHP 5.4
      * @dataProvider localeDataProvider
@@ -106,6 +106,16 @@ class InternetTest extends \PHPUnit_Framework_TestCase
     public function testIpv4()
     {
         $this->assertNotFalse(filter_var($this->faker->ipv4(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4));
+    }
+
+    public function testIpv4NotLocalNetwork()
+    {
+        $this->assertNotRegExp('/\A1\./', $this->faker->ipv4());
+    }
+
+    public function testIpv4NotBroadcast()
+    {
+        $this->assertNotEquals('255.255.255.255', $this->faker->ipv4());
     }
 
     public function testIpv6()

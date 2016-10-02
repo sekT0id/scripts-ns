@@ -90,7 +90,7 @@ class BaseStringHelper
             return '';
         }
     }
-
+    
     /**
      * Truncates a string to the number of characters specified.
      *
@@ -107,14 +107,14 @@ class BaseStringHelper
         if ($asHtml) {
             return static::truncateHtml($string, $length, $suffix, $encoding ?: Yii::$app->charset);
         }
-
+        
         if (mb_strlen($string, $encoding ?: Yii::$app->charset) > $length) {
             return trim(mb_substr($string, 0, $length, $encoding ?: Yii::$app->charset)) . $suffix;
         } else {
             return $string;
         }
     }
-
+    
     /**
      * Truncates a string to the number of words specified.
      *
@@ -138,7 +138,7 @@ class BaseStringHelper
             return $string;
         }
     }
-
+    
     /**
      * Truncate a string while preserving the HTML.
      *
@@ -165,7 +165,7 @@ class BaseStringHelper
             } elseif ($token instanceof \HTMLPurifier_Token_Text && $totalCount <= $count) { //Text
                 if (false === $encoding) {
                     $token->data = self::truncateWords($token->data, $count - $totalCount, '');
-                    $currentCount = str_word_count($token->data);
+                    $currentCount = self::countWords($token->data);
                 } else {
                     $token->data = self::truncate($token->data, $count - $totalCount, '', $encoding) . ' ';
                     $currentCount = mb_strlen($token->data, $encoding);
@@ -232,7 +232,7 @@ class BaseStringHelper
             }
             return substr_compare($string, $with, -$bytes, $bytes) === 0;
         } else {
-            return mb_strtolower(mb_substr($string, -$bytes, null, '8bit'), Yii::$app->charset) === mb_strtolower($with, Yii::$app->charset);
+            return mb_strtolower(mb_substr($string, -$bytes, mb_strlen($string, '8bit'), '8bit'), Yii::$app->charset) === mb_strtolower($with, Yii::$app->charset);
         }
     }
 
@@ -269,5 +269,17 @@ class BaseStringHelper
             }));
         }
         return $result;
+    }
+
+    /**
+     * Counts words in a string
+     * @since 2.0.8
+     *
+     * @param string $string
+     * @return integer
+     */
+    public static function countWords($string)
+    {
+        return count(preg_split('/\s+/u', $string, null, PREG_SPLIT_NO_EMPTY));
     }
 }

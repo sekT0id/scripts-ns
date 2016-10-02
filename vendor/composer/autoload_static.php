@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf1bc6bd62746b70ed45112d2852ce49d
+class ComposerStaticInit32b8eb537f8e12e57c5e7bade69d01f0
 {
     public static $files = array (
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
@@ -12,7 +12,7 @@ class ComposerStaticInitf1bc6bd62746b70ed45112d2852ce49d
     );
 
     public static $prefixLengthsPsr4 = array (
-        'y' =>
+        'y' => 
         array (
             'yii\\swiftmailer\\' => 16,
             'yii\\gii\\' => 8,
@@ -23,70 +23,100 @@ class ComposerStaticInitf1bc6bd62746b70ed45112d2852ce49d
             'yii\\bootstrap\\' => 14,
             'yii\\' => 4,
         ),
-        'c' =>
+        'k' => 
+        array (
+            'kato\\sirtrevorjs\\' => 17,
+            'kartik\\datetime\\' => 16,
+            'kartik\\date\\' => 12,
+            'kartik\\base\\' => 12,
+        ),
+        'c' => 
         array (
             'cebe\\markdown\\' => 14,
         ),
-        'F' =>
+        'F' => 
         array (
             'Faker\\' => 6,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'yii\\swiftmailer\\' =>
+        'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
         ),
-        'yii\\gii\\' =>
+        'yii\\gii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-gii',
         ),
-        'yii\\faker\\' =>
+        'yii\\faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-faker',
         ),
-        'yii\\debug\\' =>
+        'yii\\debug\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-debug',
         ),
-        'yii\\composer\\' =>
+        'yii\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-composer',
         ),
-        'yii\\codeception\\' =>
+        'yii\\codeception\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-codeception',
         ),
-        'yii\\bootstrap\\' =>
+        'yii\\bootstrap\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-bootstrap',
         ),
-        'yii\\' =>
+        'yii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
-        'cebe\\markdown\\' =>
+        'kato\\sirtrevorjs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/perminder-klair/yii2-sir-trevor-js',
+        ),
+        'kartik\\datetime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datetimepicker',
+        ),
+        'kartik\\date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datepicker',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
+        ),
+        'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
         ),
-        'Faker\\' =>
+        'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'H' =>
+        'M' => 
         array (
-            'HTMLPurifier' =>
+            'Michelf' => 
+            array (
+                0 => __DIR__ . '/..' . '/michelf/php-markdown',
+            ),
+        ),
+        'H' => 
+        array (
+            'HTMLPurifier' => 
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
         ),
-        'D' =>
+        'D' => 
         array (
-            'Diff' =>
+            'Diff' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/php-diff/lib',
             ),
@@ -96,9 +126,9 @@ class ComposerStaticInitf1bc6bd62746b70ed45112d2852ce49d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf1bc6bd62746b70ed45112d2852ce49d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf1bc6bd62746b70ed45112d2852ce49d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitf1bc6bd62746b70ed45112d2852ce49d::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit32b8eb537f8e12e57c5e7bade69d01f0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit32b8eb537f8e12e57c5e7bade69d01f0::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit32b8eb537f8e12e57c5e7bade69d01f0::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

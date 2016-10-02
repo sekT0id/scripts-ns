@@ -88,7 +88,7 @@ class Address extends \Faker\Provider\Address
         '{{firstName}} {{societySuffix}}'
     );
     protected static $streetAddressFormats = array(
-
+        
         '{{buildingNumber}}, {{locality}},',
         '{{buildingNumber}}, {{societyName}}, {{locality}}',
     );
