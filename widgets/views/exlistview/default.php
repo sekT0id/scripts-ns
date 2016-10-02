@@ -1,5 +1,9 @@
 <?php
+
+use kartik\date\DatePicker;
+
 use yii\helpers\Html;
+
 use yii\widgets\ListView;
 use yii\widgets\ActiveForm;
 ?>
@@ -26,7 +30,20 @@ use yii\widgets\ActiveForm;
 
 </div>
 
+
+
+
 <?php
+echo '<label>Check Issue Date</label>';
+echo DatePicker::widget([
+    'name' => 'check_issue_date',
+    'value' => date('d-M-Y', strtotime('+2 days')),
+    'options' => ['placeholder' => 'Select issue date ...'],
+    'pluginOptions' => [
+        'format' => 'dd-M-yyyy',
+        'todayHighlight' => true
+    ]
+]);
 
 echo Yii::$app->formatter->asTimestamp(2018);
 
