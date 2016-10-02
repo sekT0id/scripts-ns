@@ -30,8 +30,8 @@ class exListView extends BaseWidget
         parent::init();
 
         //$this->getData();
-
         //$this->data['searchModel'] = $this->model;
+
         $searchModel = new SessionsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

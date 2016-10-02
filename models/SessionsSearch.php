@@ -12,8 +12,8 @@ use app\models\Sessions;
  */
 class SessionsSearch extends Sessions
 {
-    public $phone;
-    public $clientName;
+    public $phone = null;
+    public $clientName = null;
     /**
      * @inheritdoc
      */
@@ -43,7 +43,7 @@ class SessionsSearch extends Sessions
      */
     public function search($params)
     {
-        $query = Sessions::find()->with('details.script');
+        $query = Sessions::find()->with('details.script')->orderBy('id DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,8 +62,8 @@ class SessionsSearch extends Sessions
 
         $query->joinWith(['client' =>
             function ($query) {
-                $query->andWhere(Clients::tableName() . '.phone LIKE "%' . $this->phone . '%"');
-                $query->andWhere(Clients::tableName() . '.name LIKE "%' . $this->clientName . '%"');
+                $query->andFilterWhere(['like', Clients::tableName() . '.phone', $this->phone]);
+                $query->andFilterWhere(['like', Clients::tableName() . '.name', $this->clientName]);
             }
         ]);
 

@@ -15,37 +15,50 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'timeStart')?>
+    <div class="row">
+        <div class="col-lg-3">
+            <?php echo $form
+                ->field($model, 'timeStart')
+                ->widget( DatePicker::classname(),[
+                    'language' => 'ru',
+                    'name' => 'check_issue_date',
+                    'value' => date('M d, Y'),
 
-    <?= $form->field($model, 'comment')?>
-    <?= $form->field($model, 'clientName')?>
-    <?= $form->field($model, 'phone')?>
+//                    'name2' => 'naaaa',
+//                    'value2' => 'naaa2a',
+//                    'type' => DatePicker::TYPE_RANGE,
 
-       <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+                    'type' => DatePicker::TYPE_INPUT,
+
+                    'pluginOptions' => [
+                        'format' => 'dd-M-yyyy',
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                    ]
+                ]);?>
+
+        </div>
+        <div class="col-lg-3">
+            <?php echo $form->field($model, 'phone')?>
+        </div>
+        <div class="col-lg-3">
+            <?php echo $form->field($model, 'clientName')?>
+        </div>
+        <div class="col-lg-3">
+            <?php echo $form->field($model, 'comment')?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <?php echo Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?php echo Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
 
-
-
-
 <?php
-echo '<label>Check Issue Date</label>';
-echo DatePicker::widget([
-    'name' => 'check_issue_date',
-    'value' => date('d-M-Y', strtotime('+2 days')),
-    'options' => ['placeholder' => 'Select issue date ...'],
-    'pluginOptions' => [
-        'format' => 'dd-M-yyyy',
-        'todayHighlight' => true
-    ]
-]);
-
-echo Yii::$app->formatter->asTimestamp(2018);
 
 echo ListView::widget([
     'dataProvider' => $dataProvider,

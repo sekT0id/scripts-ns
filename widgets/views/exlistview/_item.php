@@ -11,7 +11,7 @@
     >
        <div class="row">
 
-            <div class="col-lg-2">
+            <div class="col-lg-3">
                 <i class="glyphicon glyphicon-calendar"></i>
                 <?php echo Yii::$app->formatter->asDate($model->timeStart);?>
             </div>
@@ -25,7 +25,7 @@
                 <i class="glyphicon glyphicon-user"></i>
                 <?php echo $model->client->name;?>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <?php if ($model->comment) :?>
                     <i class="glyphicon glyphicon-comment"></i>
                     <?php echo $model->comment;?>
