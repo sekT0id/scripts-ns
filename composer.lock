@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad882944f00a5d3ea96e66674d8f3f90",
-    "content-hash": "0937420f89deed81960bb22de5d6baf1",
+    "hash": "d9f12f6e76119c1f777d3a8bf03810d3",
+    "content-hash": "8766bc2bec55c455b54482d37805b868",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -301,7 +301,7 @@
         },
         {
             "name": "kartik-v/yii2-field-range",
-            "version": "dev-master",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-field-range.git",
@@ -1111,8 +1111,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kartik-v/yii2-widget-datepicker": 20,
-        "kartik-v/yii2-field-range": 20
+        "kartik-v/yii2-widget-datepicker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

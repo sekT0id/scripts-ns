@@ -87,7 +87,7 @@ return array (
   'kartik-v/yii2-field-range' =>
   array (
     'name' => 'kartik-v/yii2-field-range',
-    'version' => '9999999-dev',
+    'version' => '1.3.1.0',
     'alias' =>
     array (
       '@kartik/field' => $vendorDir . '/kartik-v/yii2-field-range',
