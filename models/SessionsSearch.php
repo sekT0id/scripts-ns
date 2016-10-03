@@ -59,7 +59,12 @@ class SessionsSearch extends Sessions
         }
 
         $query->andFilterWhere(['like', 'comment', $this->comment]);
-        //$query->andFilterWhere(['like', 'timeStart', Yii::$app->formatter->asTimestamp($this->timeStart)]);
+        $query->andFilterWhere([
+            'between',
+            'timeStart',
+            Yii::$app->formatter->asTimestamp($this->timeStart),
+            Yii::$app->formatter->asTimestamp($this->dateTo . '+1 day'),
+        ]);
 
         $query->joinWith(['client' =>
             function ($query) {

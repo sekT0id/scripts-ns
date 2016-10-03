@@ -27,11 +27,19 @@ use yii\widgets\ActiveForm;
                 'type' => DatePicker::TYPE_RANGE,
 
                 'attribute' => 'timeStart',
+                'options' => [
+                    'value' => ($model->timeStart) ? $model->timeStart :date('d-m-Y'),
+                ],
+
                 'attribute2' => 'dateTo',
+                'options2' => [
+                    'value' => ($model->dateTo) ? $model->dateTo : date('d-m-Y'),
+                ],
+                'separator' => '<i class="glyphicon glyphicon-resize-horizontal"></i>',
 
                 'pluginOptions' => [
                     'autoclose' => true,
-                    'format' => 'dd-m-yyyy',
+                    'format' => 'd-m-yyyy',
                     'todayHighlight' => true,
                 ],
             ]);?>
@@ -59,7 +67,6 @@ use yii\widgets\ActiveForm;
 </div>
 
 <?php
-
 echo ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_item',

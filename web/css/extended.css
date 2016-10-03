@@ -288,3 +288,29 @@ input[type=text] {
 /**
  * Accordion / END
  */
+/**
+ * Date picker / BEGIN
+ */
+.input-daterange div.form-control {
+  height: auto;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+.input-daterange div.form-control input.form-control {
+  border-radius: 0 !important;
+  height: 2.1rem;
+  margin-bottom: 1rem;
+}
+.input-daterange .input-group-addon.kv-field-separator {
+  border: none;
+  top: -5px;
+  background-color: transparent;
+}
+.input-daterange .input-group-addon.kv-field-separator i {
+  top: inherit;
+}
+/**
+ * Date picker / END
+ */
