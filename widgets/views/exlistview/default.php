@@ -17,26 +17,26 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-lg-3">
-            <?php echo $form
-                ->field($model, 'timeStart')
-                ->widget( DatePicker::classname(),[
-                    'language' => 'ru',
-                    'name' => 'check_issue_date',
-                    'value' => date('M d, Y'),
+            <div class="form-group">
 
-//                    'name2' => 'naaaa',
-//                    'value2' => 'naaa2a',
-//                    'type' => DatePicker::TYPE_RANGE,
+            <?php echo '<label class="control-label">Даты</label>';?>
+            <?php echo DatePicker::widget([
+                'form' => $form,
+                'model' => $model,
+                'language' => 'ru',
+                'type' => DatePicker::TYPE_RANGE,
 
-                    'type' => DatePicker::TYPE_INPUT,
+                'attribute' => 'timeStart',
+                'attribute2' => 'dateTo',
 
-                    'pluginOptions' => [
-                        'format' => 'dd-M-yyyy',
-                        'autoclose' => true,
-                        'todayHighlight' => true,
-                    ]
-                ]);?>
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'dd-m-yyyy',
+                    'todayHighlight' => true,
+                ],
+            ]);?>
 
+            </div>
         </div>
         <div class="col-lg-3">
             <?php echo $form->field($model, 'phone')?>

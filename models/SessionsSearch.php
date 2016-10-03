@@ -14,6 +14,7 @@ class SessionsSearch extends Sessions
 {
     public $phone = null;
     public $clientName = null;
+    public $dateTo = null;
     /**
      * @inheritdoc
      */
@@ -21,7 +22,7 @@ class SessionsSearch extends Sessions
     {
         return [
             [['id', 'userId', 'clientId'], 'integer'],
-            [['comment', 'timeStart', 'phone', 'clientName'], 'safe'],
+            [['comment', 'timeStart', 'dateTo', 'phone', 'clientName'], 'safe'],
         ];
     }
 
@@ -58,7 +59,7 @@ class SessionsSearch extends Sessions
         }
 
         $query->andFilterWhere(['like', 'comment', $this->comment]);
-        $query->andFilterWhere(['like', 'timeStart', Yii::$app->formatter->asTimestamp($this->timeStart)]);
+        //$query->andFilterWhere(['like', 'timeStart', Yii::$app->formatter->asTimestamp($this->timeStart)]);
 
         $query->joinWith(['client' =>
             function ($query) {
