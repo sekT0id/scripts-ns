@@ -29,6 +29,18 @@ class SessionsSearch extends Sessions
     /**
      * @inheritdoc
      */
+    public function attributeLabels()
+    {
+        return [
+            'phone'  => 'Номер телефона',
+            'comment' => 'Комментарий',
+            'clientName' => 'Наименование клиента',
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
