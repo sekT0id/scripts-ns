@@ -25,8 +25,7 @@ class ComposerStaticInit32b8eb537f8e12e57c5e7bade69d01f0
         ),
         'k' => 
         array (
-            'kato\\sirtrevorjs\\' => 17,
-            'kartik\\datetime\\' => 16,
+            'kartik\\field\\' => 13,
             'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
         ),
@@ -73,13 +72,9 @@ class ComposerStaticInit32b8eb537f8e12e57c5e7bade69d01f0
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
-        'kato\\sirtrevorjs\\' => 
+        'kartik\\field\\' =>
         array (
-            0 => __DIR__ . '/..' . '/perminder-klair/yii2-sir-trevor-js',
-        ),
-        'kartik\\datetime\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datetimepicker',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-field-range',
         ),
         'kartik\\date\\' => 
         array (
