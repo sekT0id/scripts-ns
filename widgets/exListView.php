@@ -4,6 +4,7 @@ namespace app\widgets;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\Sort;
 
 use app\models\Form;
 use app\models\Sessions;
@@ -20,5 +21,6 @@ class exListView extends BaseWidget
 
         $this->data['model'] = $searchModel;
         $this->data['dataProvider'] = $dataProvider;
+        $this->data['sort'] = $dataProvider->sort;
     }
 }

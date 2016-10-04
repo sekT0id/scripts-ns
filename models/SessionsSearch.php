@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\data\Sort;
 use yii\data\ActiveDataProvider;
 use app\models\Sessions;
 
@@ -56,10 +57,31 @@ class SessionsSearch extends Sessions
      */
     public function search($params)
     {
-        $query = Sessions::find()->with('details.script')->orderBy('id DESC');
+        $sort = new Sort([
+            'attributes' => [
+                'timeStart',
+                'comment',
+                'phone' => [
+                    'asc' => [Clients::tableName() . '.phone' => SORT_ASC],
+                    'desc' => [Clients::tableName() . '.phone' => SORT_DESC],
+                    'default' => SORT_DESC,
+                    'label' => $this->attributeLabels()['phone'],
+                ],
+                'clientName' => [
+                    'asc' => [Clients::tableName() . '.name' => SORT_ASC],
+                    'desc' => [Clients::tableName() . '.name' => SORT_DESC],
+                    'default' => SORT_DESC,
+                    'label' => $this->attributeLabels()['clientName'],
+                ],
+            ],
+        ]);
+
+        $query = Sessions::find()
+            ->with('details.script');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => $sort,
         ]);
 
         $this->load($params);

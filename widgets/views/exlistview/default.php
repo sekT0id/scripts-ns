@@ -5,6 +5,7 @@ use kartik\date\DatePicker;
 use yii\helpers\Html;
 
 use yii\widgets\ListView;
+use yii\widgets\LinkSorter;
 use yii\widgets\ActiveForm;
 ?>
 
@@ -19,7 +20,7 @@ use yii\widgets\ActiveForm;
         <div class="col-lg-3">
             <div class="form-group">
 
-            <?php echo '<label class="control-label">Период отображения</label>';?>
+            <?php echo $sort->link('timeStart');?>
             <?php echo DatePicker::widget([
                 'form' => $form,
                 'model' => $model,
@@ -47,19 +48,22 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
         <div class="col-lg-3">
-            <?php echo $form->field($model, 'phone')?>
+            <?php echo $sort->link('phone');?>
+            <?php echo $form->field($model, 'phone')->label(false);?>
         </div>
         <div class="col-lg-3">
-            <?php echo $form->field($model, 'clientName')?>
+            <?php echo $sort->link('clientName');?>
+            <?php echo $form->field($model, 'clientName')->label(false);?>
         </div>
         <div class="col-lg-3">
-            <?php echo $form->field($model, 'comment')?>
+            <?php echo $sort->link('comment');?>
+            <?php echo $form->field($model, 'comment')->label(false);?>
         </div>
     </div>
 
     <div class="form-group">
-        <?php echo Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
         <?php echo Html::resetButton('Сброс', ['class' => 'btn btn-default']) ?>
+        <?php echo Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
