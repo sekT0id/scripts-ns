@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
         <div class="col-lg-3">
             <div class="form-group">
 
-            <?php echo '<label class="control-label">Даты</label>';?>
+            <?php echo '<label class="control-label">Период отображения</label>';?>
             <?php echo DatePicker::widget([
                 'form' => $form,
                 'model' => $model,
@@ -58,8 +58,8 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form-group">
-        <?php echo Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?php echo Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?php echo Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
+        <?php echo Html::resetButton('Сброс', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

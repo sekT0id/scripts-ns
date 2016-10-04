@@ -264,7 +264,7 @@ input[type=text] {
   margin: 0;
   border: 0;
   box-shadow: none;
-  padding: 1rem 1.5rem;
+  padding: 1rem 0;
   border-bottom: 1px solid #eee;
 }
 .accordion .panel-heading {
@@ -306,6 +306,8 @@ input[type=text] {
 .input-daterange .input-group-addon.kv-field-separator {
   border: none;
   top: -5px;
+  margin: 0;
+  padding: 0;
   background-color: transparent;
 }
 .input-daterange .input-group-addon.kv-field-separator i {
@@ -314,3 +316,6 @@ input[type=text] {
 /**
  * Date picker / END
  */
+.sessions-form {
+  margin-bottom: 15px;
+}
