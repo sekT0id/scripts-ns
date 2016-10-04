@@ -144,6 +144,9 @@ class BaseController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Destroy cession action.
+     */
     public function destroySession()
     {
         $session = Yii::$app->session;

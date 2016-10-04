@@ -37,7 +37,7 @@ class TreeView extends BaseWidget
     /**
      * Возвращает html строку параметров тега
      *
-     * @return Exception / string
+     * @return string / exception
      */
     public function getTreeOptions()
     {

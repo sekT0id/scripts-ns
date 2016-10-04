@@ -83,10 +83,22 @@ class Sessions extends BaseModel
         return $this->hasOne(Clients::className(), ['id' => 'clientId']);
     }
 
+    /**
+     * Возвращает номер телефона
+     * Используется в SearchModel
+     *
+     * @return ActiveRecord object
+     */
     public function getPhone() {
         return $this->client->phone;
     }
 
+    /**
+     * Возвращает имя клиента
+     * Используется в SearchModel
+     *
+     * @return ActiveRecord object
+     */
     public function getClientName() {
         return $this->client->name;
     }

@@ -10,7 +10,6 @@ use app\models\Clients;
 
 class SiteController extends BaseController
 {
-
     public function mixinIndex($data)
     {
         $data['model'] = new Form;
@@ -27,17 +26,4 @@ class SiteController extends BaseController
 
         return $data;
     }
-
-    public function mixinClients($data)
-    {
-        $searchModel = new Clients;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->defaultPageSize = 10;
-
-        $data['searchModel'] = $searchModel;
-        $data['dataProvider'] = $dataProvider;
-
-        return $data;
-    }
-
 }
