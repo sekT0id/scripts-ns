@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['/site/view', 'alias' => 'calls'],
         'method' => 'get',
-    ]); ?>
+    ]);?>
 
     <div class="row">
         <div class="col-lg-3">
